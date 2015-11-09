@@ -6,9 +6,10 @@
 //
 //
 
-#ifndef MapKit_h
-#define MapKit_h
+#import <Cordova/CDV.h>
 
+@interface MapKit : CDVPlugin
 
+- (void) test:(CDVInvokedUrlCommand*)command;
 
-#endif /* MapKit_h */
+@end
