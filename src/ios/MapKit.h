@@ -9,6 +9,6 @@
 #ifndef MapKit_h
 #define MapKit_h
 
-#import <Cordova/CDV.h>
+
 
 #endif /* MapKit_h */

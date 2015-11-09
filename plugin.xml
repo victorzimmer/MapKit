@@ -15,7 +15,7 @@
             </feature>
         </config-file>
         <header-file src="src/ios/MapKit.h" />
-        <header-file src="src/cordova-plugin-iosrtc-Bridging-Header.h" />
+        <header-file src="src/ios/cordova-plugin-mapkit-Bridging-Header.h" />
         <source-file src="src/ios/MapKit.swift" />
     </platform>
 </plugin>
