@@ -15,6 +15,6 @@
             </feature>
         </config-file>
         <header-file src="src/ios/MapKit.h" />
-        <source-file src="src/ios/MapKit.swift" />
+        <source-file src="src/ios/MapKit.m" />
     </platform>
 </plugin>
