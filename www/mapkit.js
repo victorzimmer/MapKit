@@ -66,47 +66,47 @@ var Map = function (mapId) {
 
   }
 
-  this.showMapScale = function {
+  this.showMapScale = function () {
     this.options.mapScale = true
     cordova.exec(this.execSuccess, this.execFailure, 'MapKit', 'showMapScale', [this.mapId])
   }
-  this.hideMapScale = function {
+  this.hideMapScale = function () {
     this.options.mapScale = false
     cordova.exec(this.execSuccess, this.execFailure, 'MapKit', 'hideMapScale', [this.mapId])
   }
 
-  this.showMapCompass = function {
+  this.showMapCompass = function () {
 
   }
-  this.hideMapCompass = function {
-
-  }
-
-  this.showMapTraffic = function {
-
-  }
-  this.hideMapTraffic = function {
+  this.hideMapCompass = function () {
 
   }
 
-  this.showMapBuildings = function {
+  this.showMapTraffic = function () {
 
   }
-  this.hideMapBuildings = function {
-
-  }
-
-  this.showMapUserLocation = function {
-
-  }
-  this.hideMapUserLocation = function {
+  this.hideMapTraffic = function () {
 
   }
 
-  this.showMapPointsOfInterest = function {
+  this.showMapBuildings = function () {
 
   }
-  this.hideMapPointsOfInterest = function {
+  this.hideMapBuildings = function () {
+
+  }
+
+  this.showMapUserLocation = function () {
+
+  }
+  this.hideMapUserLocation = function () {
+
+  }
+
+  this.showMapPointsOfInterest = function () {
+
+  }
+  this.hideMapPointsOfInterest = function () {
 
   }
 
