@@ -115,5 +115,5 @@ var MKMap = function (mapId) {
 }
 
 cordovaRef.addConstructor(function() {
-		window.mapkit.MKMap = MKMap;
+		window.MKMap = MKMap;
 });
