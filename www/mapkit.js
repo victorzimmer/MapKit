@@ -14,7 +14,7 @@ var MKMap = function (mapId) {
   this.created = false
   this.options = {}
   this.options.xPos = 0
-  this.options.ypos = 0
+  this.options.yPos = 0
   this.options.height = 0
   this.options.width = 0
   this.options.mapScale = false
@@ -54,6 +54,7 @@ var MKMap = function (mapId) {
     console.warn(err)
   }
   this.createMap = function () {
+    console.log('Creating map')
     cordova.exec(this.execSuccess, this.execFailure, 'MapKit', 'createMapView', [this.mapId, this.height, this.width, this.xPos, this.yPos])
   }
   this.destroyMap = function () {
