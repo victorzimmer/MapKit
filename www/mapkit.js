@@ -1,6 +1,8 @@
+var cordovaRef = window.PhoneGap || window.Cordova || window.cordova;
+
 var MapArray = []
 
-var Map = function (mapId) {
+var MKMap = function (mapId) {
   if (mapId != undefined)
   {
     this.mapId = mapId
@@ -111,3 +113,7 @@ var Map = function (mapId) {
   }
 
 }
+
+cordovaRef.addConstructor(function() {
+		window.mapkit.MKMap = MKMap;
+});
