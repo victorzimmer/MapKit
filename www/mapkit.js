@@ -11,7 +11,7 @@ var MKMap = function (mapId) {
     this.mapArrayId = MapArray.push(this)
     this.mapId = "map_" + this.mapArrayId
   }
-  this.created = FALSE
+  this.created = false
   this.options = {}
   this.options.xPos = 0
   this.options.ypos = 0
