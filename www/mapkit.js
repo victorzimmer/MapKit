@@ -55,10 +55,10 @@ var MKMap = function (mapId) {
     console.warn("MapKit failed to execute native command:")
     console.warn(err)
   }
-  this.createMap = function () {
+  this.createMap = function (c) {
     console.log('Creating map')
-    console.log(cordovaRef)
-    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'createMapView', [this.mapId, this.height, this.width, this.xPos, this.yPos])
+    console.log(c)
+    c.exec(this.execSuccess, this.execFailure, 'MapKit', 'createMapView', [this.mapId, this.height, this.width, this.xPos, this.yPos])
   }
   this.destroyMap = function () {
 
