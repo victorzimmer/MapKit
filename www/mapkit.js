@@ -1,3 +1,5 @@
+var cordovaRef = window.PhoneGap || window.Cordova || window.cordova;
+
 var MapArray = []
 
 var MKMap = function (mapId) {
@@ -55,7 +57,7 @@ var MKMap = function (mapId) {
   }
   this.createMap = function () {
     console.log('Creating map')
-    cordova.exec(this.execSuccess, this.execFailure, 'MapKit', 'createMapView', [this.mapId, this.height, this.width, this.xPos, this.yPos])
+    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'createMapView', [this.mapId, this.height, this.width, this.xPos, this.yPos])
   }
   this.destroyMap = function () {
 
