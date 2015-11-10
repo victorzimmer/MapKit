@@ -71,11 +71,11 @@ var MKMap = function (mapId) {
 
   this.showMapScale = function () {
     this.options.mapScale = true
-    cordova.exec(this.execSuccess, this.execFailure, 'MapKit', 'showMapScale', [this.mapId])
+    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'showMapScale', [this.mapId])
   }
   this.hideMapScale = function () {
     this.options.mapScale = false
-    cordova.exec(this.execSuccess, this.execFailure, 'MapKit', 'hideMapScale', [this.mapId])
+    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'hideMapScale', [this.mapId])
   }
 
   this.showMapCompass = function () {
