@@ -185,6 +185,8 @@ CLLocationManager* locationManager;
     NSString* mapId = [[command arguments] objectAtIndex:0];
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
+    NSLog(@"%@", mapView);
+
     mapView.showsScale = YES;
 
 
