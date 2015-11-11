@@ -23,7 +23,7 @@ var MKMap = function (mapId) {
   this.options.mapTraffic = false
   this.options.mapCompass = false
   this.options.mapBuildings = false
-  this.options.mapPointsOfInterest = false
+  this.options.mapPointsOfInterest = true
   this.options.mapUserLocation = false
   this.setBounds = function (height, width) {
     if (this.created)
@@ -83,7 +83,8 @@ var MKMap = function (mapId) {
     cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'showMapCompass', [this.mapId])
   }
   this.hideMapCompass = function () {
-
+    this.options.mapCompass = false
+    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'hideMapCompass', [this.mapId])
   }
 
   this.showMapTraffic = function () {
@@ -91,28 +92,35 @@ var MKMap = function (mapId) {
     cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'showMapTraffic', [this.mapId])
   }
   this.hideMapTraffic = function () {
-
+    this.options.mapTraffic = false
+    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'hideMapTraffic', [this.mapId])
   }
 
   this.showMapBuildings = function () {
-
+    this.options.mapBuildings = true
+    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'showMapBuildings', [this.mapId])
   }
   this.hideMapBuildings = function () {
-
+    this.options.mapBuildings = false
+    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'hideMapBuildings', [this.mapId])
   }
 
   this.showMapUserLocation = function () {
-
+    this.options.mapUserLocation = true
+    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'showMapUserLocation', [this.mapId])
   }
   this.hideMapUserLocation = function () {
-
+    this.options.mapUserLocation = false
+    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'hideMapUserLocation', [this.mapId])
   }
 
   this.showMapPointsOfInterest = function () {
-
+    this.options.mapPointsOfInterest = true
+    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'showMapPointsOfInterest', [this.mapId])
   }
   this.hideMapPointsOfInterest = function () {
-
+    this.options.mapPointsOfInterest = false
+    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'hideMapPointsOfInterest', [this.mapId])
   }
 
 }
