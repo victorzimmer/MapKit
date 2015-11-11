@@ -1,18 +1,28 @@
 var cordovaRef = window.PhoneGap || window.Cordova || window.cordova;
 
 var MapArray = []
+var MapDict = {}
 
 var MKMap = function (mapId) {
   if (mapId != undefined)
   {
+
     this.mapId = mapId
-    this.mapArrayId = MapArray.push(this)
+    // this.mapArrayId = MapArray.push(this)
   }
   else
   {
-    this.mapArrayId = MapArray.push(this)
-    this.mapId = "map_" + this.mapArrayId
+    this.mapId = "map_" + (MapArray.length + 1)
+    // this.mapId = "map_" + this.mapArrayId
   }
+
+  if (MapDict[mapId] != undefined)
+  {
+    MapDict[mapId].destroyMap()
+  }
+
+  this.mapArrayId = MapArray.push(this)
+
   this.created = false
   this.options = {}
   this.options.xPos = 0
@@ -123,6 +133,13 @@ var MKMap = function (mapId) {
     cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'hideMapPointsOfInterest', [this.mapId])
   }
 
+  this.destroyMap = function () {
+
+  }
+
 }
 
-window.MKMap = MKMap
+window.MKInterface = {}
+window.MKInterface.MKMap = MKMap
+window.MKInterface.getMapByArrayId = function (aid) { return MapArray[aid] }
+window.MKInterface.getMapByMapId = function (mid) { return MapDict[mid] }
