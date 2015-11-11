@@ -189,7 +189,7 @@ UIWebView* webView;
     NSString* mapId = [[command arguments] objectAtIndex:0];
     MKMapView* mapView = [webView viewWithTag:mapId];
 
-    NSLog(@"%@", webView);
+    NSLog(@"%@", mapView);
 
     mapView.showsScale = YES;
 
