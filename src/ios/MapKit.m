@@ -15,6 +15,8 @@
 @implementation MapKit
 
 CLLocationManager* locationManager;
+UIWebView* webView;
+
 
 - (id)init
 {
@@ -124,10 +126,12 @@ CLLocationManager* locationManager;
     CGFloat xPos = [[[command arguments] objectAtIndex:3]floatValue];
     CGFloat yPos = [[[command arguments] objectAtIndex:4]floatValue];
 
+    webView = self.webView;
+
     MKMapView* mapView = [[MKMapView alloc]initWithFrame:CGRectMake(xPos, yPos, width, height)];
     mapView.tag = mapId;
     mapView.delegate = self;
-    [self.webView addSubview:mapView];
+    [webView addSubview:mapView];
 
 
     CDVPluginResult* result = [CDVPluginResult
@@ -142,7 +146,7 @@ CLLocationManager* locationManager;
 {
     NSString* callbackId = [command callbackId];
     NSString* mapId = [[command arguments] objectAtIndex:0];
-    MKMapView* mapView = [self.webView viewWithTag:mapId];
+    MKMapView* mapView = [webView viewWithTag:mapId];
     [mapView removeFromSuperview];
 
 
@@ -158,7 +162,7 @@ CLLocationManager* locationManager;
 {
     NSString* callbackId = [command callbackId];
     NSString* mapId = [[command arguments] objectAtIndex:0];
-    MKMapView* mapView = [self.webView viewWithTag:mapId];
+    MKMapView* mapView = [webView viewWithTag:mapId];
 
     NSString* stringRes;
 
@@ -183,7 +187,7 @@ CLLocationManager* locationManager;
 {
     NSString* callbackId = [command callbackId];
     NSString* mapId = [[command arguments] objectAtIndex:0];
-    MKMapView* mapView = [self.webView viewWithTag:mapId];
+    MKMapView* mapView = [webView viewWithTag:mapId];
 
     NSLog(@"%@", self);
 
