@@ -79,14 +79,16 @@ var MKMap = function (mapId) {
   }
 
   this.showMapCompass = function () {
-
+    this.options.mapCompass = true
+    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'showMapCompass', [this.mapId])
   }
   this.hideMapCompass = function () {
 
   }
 
   this.showMapTraffic = function () {
-
+    this.options.mapTraffic = true
+    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'showMapTraffic', [this.mapId])
   }
   this.hideMapTraffic = function () {
 
