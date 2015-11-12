@@ -354,6 +354,7 @@ var MKMap = function (mapId) {
       title = arguments[2] || ("Pin " + this.PinsArray.length)
       description = arguments[3] || ""
     }
+    console.log(lat)
     if (this.Pins[title] != undefined)
     {
       this.Pins[title].removePin()
