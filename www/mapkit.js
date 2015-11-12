@@ -21,6 +21,7 @@ var MKMap = function (mapId) {
     MapDict[mapId].destroyMap()
   }
 
+  MapDict[mapId] = this;
   this.mapArrayId = MapArray.push(this) - 1
 
   this.created = false
