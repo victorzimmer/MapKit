@@ -339,6 +339,7 @@ var MKMap = function (mapId) {
   }
 
   this.addSimpleMapPin = function (data) {
+    console.log(isPlainObject(data))
     if (data != undefined && isPlainObject(data))
     {
       lat = data.lat || 58
