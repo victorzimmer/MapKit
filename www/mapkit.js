@@ -342,15 +342,15 @@ var MKMap = function (mapId) {
     console.log(isPlainObject(data))
     if (data != undefined && isPlainObject(data))
     {
-      lat = data.lat || 58
-      lon = data.lon || 11
+      lat = data.lat
+      lon = data.lon
       title = data.title || ("Pin " + this.PinsArray.length)
       description = data.description || ""
     }
     else
     {
-      lat = arguments[0] || 58
-      lon = arguments[1] || 11
+      lat = arguments[0]
+      lon = arguments[1]
       title = arguments[2] || ("Pin " + this.PinsArray.length)
       description = arguments[3] || ""
     }
