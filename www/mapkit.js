@@ -13,6 +13,8 @@ var MKLocationManager = function () {
   }
 
   this.handleLocationAuthStatus = function (locationAuthStatus) {
+    console.console.log(locationAuthStatus);
+
     this.locationAuthStatus = locationAuthStatus
 
     if (locationAuthStatus == "LOCATION_AUTH_AUTHORIZED" || locationAuthStatus == "LOCATION_AUTH_AUTHORIZED_ALWAYS" || locationAuthStatus == "LOCATION_AUTH_AUTHORIZED_WHEN_IN_USE")
