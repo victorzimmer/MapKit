@@ -145,8 +145,8 @@ var MKMap = function (mapId) {
     }
     else
     {
-      this.options.xPos = x || this.options.xPos
-      this.options.yPos = y || this.options.yPos
+      this.options.xPos = xPos || this.options.xPos
+      this.options.yPos = yPos || this.options.yPos
     }
   }
   this.execSuccess = function (data) {
