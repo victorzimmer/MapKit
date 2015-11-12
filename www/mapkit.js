@@ -79,6 +79,7 @@ var MKMap = function (mapId) {
   this.locationManager = locationManager;
 
   this.created = false
+  this.destroyed = false
   this.options = {}
   this.options.xPos = 0
   this.options.yPos = 0
@@ -205,6 +206,7 @@ var MKMap = function (mapId) {
   }
   this.destroyMap = function () {
     console.log(`#Map(${this.mapId}) Destroying map`)
+    this.destroyed = true
     that = this
     cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'removeMapView', [this.mapId])
   }
