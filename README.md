@@ -160,7 +160,7 @@ You may earn 1$ by using it and be nice and credit me or become the next big app
 ## Credits
 
 * [This MapKit Plugin](https://github.com/imhotep/MapKit) for inspiration (No code borrowed though)
-* [Politikontroller](http://www.politikontroller.no) (A Norwegian app) Some of the time devoted to MapKit was done in work hours for them. They kindly let me keep all MapKit related code for all purposes.
+* [Politikontroller](http://www.politikontroller.no) (A Norwegian app) Some of the time devoted to MapKit was done in hours I worked for them. They kindly let me keep all MapKit related code for all purposes.
 * Caffeine.
 * Uhm Victor Zimmer (Me) @ [HotDot](http://www.hotdot.no) (For making this thing I guess)
 
