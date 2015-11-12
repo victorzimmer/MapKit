@@ -205,7 +205,6 @@ var MKMap = function (mapId) {
   }
   this.destroyMap = function () {
     console.log(`#Map(${this.mapId}) Destroying map`)
-    this.created = false
     that = this
     cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'removeMapView', [this.mapId])
   }
