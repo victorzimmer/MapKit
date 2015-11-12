@@ -28,7 +28,7 @@ var MKLocationManager = function () {
     }
   }
   this.checkLocationAuthStatus = function () {
-    cordovaRef.exec(this.handleLocationAuthStatus, this.execFailure, 'MapKit', 'checkLocationAuthStatus')
+    cordovaRef.exec(function (data) {this.handleLocationAuthStatus(data)}, this.execFailure, 'MapKit', 'checkLocationAuthStatus')
   }
 }
 
@@ -167,6 +167,8 @@ var MKMap = function (mapId) {
     this.options.mapPointsOfInterest = false
     cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'hideMapPointsOfInterest', [this.mapId])
   }
+
+
 
   this.destroyMap = function () {
 
