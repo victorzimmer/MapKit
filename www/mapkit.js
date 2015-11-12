@@ -23,6 +23,10 @@ var MKLocationManager = function () {
     console.log(that)
 
     that.locationAuthStatus = locationAuthStatus
+    if (that.checkLocationAuthStatus_callback != undefined)
+    {
+      that.checkLocationAuthStatus_callback(locationAuthStatus)
+    }
 
     if (locationAuthStatus == "LOCATION_AUTH_AUTHORIZED" || locationAuthStatus == "LOCATION_AUTH_AUTHORIZED_ALWAYS" || locationAuthStatus == "LOCATION_AUTH_AUTHORIZED_WHEN_IN_USE")
     {
@@ -33,7 +37,8 @@ var MKLocationManager = function () {
       that.canUseLocation = false
     }
   }
-  this.checkLocationAuthStatus = function () {
+  this.checkLocationAuthStatus = function (callback) {
+    this.checkLocationAuthStatus_callback = callback
     that = this; //Fix for this inside callback
     cordovaRef.exec(this.handleLocationAuthStatus, this.execFailure, 'MapKit', 'checkLocationAuthStatus')
   }
@@ -190,10 +195,13 @@ var MKMap = function (mapId) {
     console.warn(err)
   }
   this.createMap = function (c) {
-    console.log(`#Map(${this.mapId}) Creating map`)
-    this.created = true
-    that = this
-    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'createMapView', [this.mapId, this.options.height, this.options.width, this.options.xPos, this.options.yPos])
+    if (!this.created)
+    {
+      console.log(`#Map(${this.mapId}) Creating map`)
+      this.created = true
+      that = this
+      cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'createMapView', [this.mapId, this.options.height, this.options.width, this.options.xPos, this.options.yPos])
+    }
   }
   this.destroyMap = function () {
     console.log(`#Map(${this.mapId}) Destroying map`)
