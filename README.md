@@ -12,10 +12,10 @@ API tries to be consistent over all platforms and will automatically figure out 
 Installation is done thru Cordova/PhoneGap CLI.
 
 For Cordova:
-`cordova plugin add https://github.com/victorzimmer/MapKit.git`
+`$ cordova plugin add https://github.com/victorzimmer/MapKit.git`
 
 For PhoneGap:
-`phonegap plugin add https://github.com/victorzimmer/MapKit.git`
+`$ phonegap plugin add https://github.com/victorzimmer/MapKit.git`
 
 MapKit uses the identifier `no.hotdot.mapkit`
 
