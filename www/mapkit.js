@@ -12,7 +12,7 @@ var MKMap = function (mapId) {
   }
   else
   {
-    this.mapId = "map_" + (MapArray.length + 1)
+    this.mapId = "map_" + MapArray.length
     // this.mapId = "map_" + this.mapArrayId
   }
 
@@ -21,7 +21,7 @@ var MKMap = function (mapId) {
     MapDict[mapId].destroyMap()
   }
 
-  this.mapArrayId = MapArray.push(this)
+  this.mapArrayId = MapArray.push(this) - 1
 
   this.created = false
   this.options = {}
