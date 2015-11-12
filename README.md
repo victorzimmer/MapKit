@@ -1,6 +1,6 @@
 # MapKit
 
-New version of MapKit (there seem to be lots of older versions around). Currently iOS-only, but will support iOS, Android and Windows Phone.\
+New version of MapKit (there seem to be lots of older versions around). Currently iOS-only, but will support iOS, Android and Windows Phone.
 
 MapKit is a plugin designed to provide Cordova/PhoneGap apps with the ability to create, modify, use and destroy mapViews that are separate from 
 
