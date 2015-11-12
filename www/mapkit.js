@@ -114,17 +114,20 @@ var MKMap = function (mapId) {
     console.warn(err)
   }
   this.createMap = function (c) {
-    console.log('Creating map')
+    console.log(`#Map(${this.mapId}) Creating map`)
     cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'createMapView', [this.mapId, this.options.height, this.options.width, this.options.xPos, this.options.yPos])
   }
   this.destroyMap = function () {
-
+    console.log(`#Map(${this.mapId}) Destroying map`)
+    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'removeMapView', [this.mapId])
   }
   this.showMap = function () {
-
+    console.log(`#Map(${this.mapId}) Showing map`)
+    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'showMapView', [this.mapId])
   }
   this.hideMap = function () {
-
+    console.log(`#Map(${this.mapId}) Hiding map`)
+    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'hideMapView', [this.mapId])
   }
 
   this.showMapScale = function () {
