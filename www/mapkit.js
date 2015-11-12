@@ -31,7 +31,7 @@ var MKLocationManager = function () {
   }
   this.checkLocationAuthStatus = function () {
     that = this; //Fix for this inside callback
-    cordovaRef.exec(function (data) {this.handleLocationAuthStatus(data)}, this.execFailure, 'MapKit', 'checkLocationAuthStatus')
+    cordovaRef.exec(this.handleLocationAuthStatus, this.execFailure, 'MapKit', 'checkLocationAuthStatus')
   }
 }
 
