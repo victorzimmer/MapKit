@@ -149,8 +149,10 @@ Returns a new object of the type `MKMap`.
 
 ## Upcoming Features
 
-* Map pins
-* Map click events with JavaScript callback
+* Map pins [Since v0.0.2 you can create standard red pins]
+* Map and pin click events with JavaScript callback
+* Implementation of Polygons
+* Ability to place HTML elements on top of WebView
 * Android support
 * Windows Phone support
 
