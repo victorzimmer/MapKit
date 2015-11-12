@@ -142,6 +142,42 @@ UIWebView* webView;
 }
 
 
+- (void)showMapView:(CDVInvokedUrlCommand*)command
+{
+    NSString* callbackId = [command callbackId];
+    NSString* mapId = [[command arguments] objectAtIndex:0];
+    MKMapView* mapView = [webView viewWithTag:mapId];
+
+    mapView.hidden = NO;
+
+
+    CDVPluginResult* result = [CDVPluginResult
+                               resultWithStatus:CDVCommandStatus_OK
+                               messageAsString:mapId];
+
+    [self success:result callbackId:callbackId];
+
+}
+
+
+- (void)hideMapView:(CDVInvokedUrlCommand*)command
+{
+    NSString* callbackId = [command callbackId];
+    NSString* mapId = [[command arguments] objectAtIndex:0];
+    MKMapView* mapView = [webView viewWithTag:mapId];
+
+    mapView.hidden = YES;
+
+
+    CDVPluginResult* result = [CDVPluginResult
+                               resultWithStatus:CDVCommandStatus_OK
+                               messageAsString:mapId];
+
+    [self success:result callbackId:callbackId];
+
+}
+
+
 - (void)removeMapView:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
