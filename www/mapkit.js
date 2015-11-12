@@ -72,6 +72,7 @@ var MKSimplePin = function (map, lat, lon, title, description) {
   }
   this.createPin = function () {
     that = this
+    console.log(`Creating pin: ${[this.map.mapId, this.lat, this.lon, this.title, this.description].join(" - ")}`)
     cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'addSimpleMapPin', [this.map.mapId, this.lat, this.lon, this.title, this.description])
   }
   this.createPinArray = function () {
