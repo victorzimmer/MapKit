@@ -13,7 +13,7 @@ var MKLocationManager = function () {
   }
 
   this.handleLocationAuthStatus = function (locationAuthStatus) {
-    console.console.log(locationAuthStatus);
+    console.log(locationAuthStatus);
 
     this.locationAuthStatus = locationAuthStatus
 
