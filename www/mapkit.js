@@ -9,8 +9,12 @@ var MKLocationManager = function () {
   this.locationAuthStatus = "LOCATION_AUTH_NOT_CHECKED"
   this.canUseLocation = false
 
+  this.execSuccess = function (data) {
+    console.log("#MKLocationManager() Executed native command successfully")
+    console.log(data)
+  }
   this.execFailure = function (err) {
-    console.warn("MapKit failed to execute native command:")
+    console.warn("#MKLocationManager() MapKit failed to execute native command:")
     console.warn(err)
   }
 
@@ -32,6 +36,12 @@ var MKLocationManager = function () {
   this.checkLocationAuthStatus = function () {
     that = this; //Fix for this inside callback
     cordovaRef.exec(this.handleLocationAuthStatus, this.execFailure, 'MapKit', 'checkLocationAuthStatus')
+  }
+  this.requestLocationAlwaysPermission = function () {
+    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'requestLocationAlwaysPermission')
+  }
+  this.requestLocationWhenInUsePermission = function () {
+    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'requestLocationWhenInUsePermission')
   }
 }
 
@@ -96,11 +106,11 @@ var MKMap = function (mapId) {
     }
   }
   this.execSuccess = function (data) {
-    console.log("Executed native command successfully")
+    console.log(`#MKMap(${this.mapId}) Executed native command successfully`)
     console.log(data)
   }
   this.execFailure = function (err) {
-    console.warn("MapKit failed to execute native command:")
+    console.warn(`#MKMap(${this.mapId}) MapKit failed to execute native command:`)
     console.warn(err)
   }
   this.createMap = function (c) {
@@ -127,6 +137,11 @@ var MKMap = function (mapId) {
   }
 
   this.showMapCompass = function () {
+    if (!this.locationManager.canUseLocation)
+    {
+      console.warn("Attempt was made to use Location#Compass without system location access. MapKit will automatically attempt to ask for WhenInUse authorization.")
+      this.locationManager.requestLocationWhenInUsePermission()
+    }
     this.options.mapCompass = true
     cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'showMapCompass', [this.mapId])
   }
@@ -154,6 +169,11 @@ var MKMap = function (mapId) {
   }
 
   this.showMapUserLocation = function () {
+    if (!this.locationManager.canUseLocation)
+    {
+      console.warn("Attempt was made to use Location#UserLocation without system location access. MapKit will automatically attempt to ask for WhenInUse authorization.")
+      this.locationManager.requestLocationWhenInUsePermission()
+    }
     this.options.mapUserLocation = true
     cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'showMapUserLocation', [this.mapId])
   }
