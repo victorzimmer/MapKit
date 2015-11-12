@@ -40,6 +40,7 @@ map.createMap()                             //Creates the MapView and shows it o
 #### Functions
 
 `MKInterface.getMapByArrayId(arrayId)` Recieves a numeric ID and returns the appropriate MKMap object. ArrayID is set by MapKit.
+
 `MKInterface.getMapByMapId(mapId)` Recieves a string ID and returns the appropriate MKMap object. MapID can be set manually.
 
 #### Objects
