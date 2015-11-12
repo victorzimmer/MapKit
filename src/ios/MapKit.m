@@ -39,7 +39,7 @@ UIWebView* webView;
     [self success:result callbackId:callbackId];
 }
 
-- (void)checkLocationPermission:(CDVInvokedUrlCommand*)command
+- (void)checkLocationAuthStatus:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
 

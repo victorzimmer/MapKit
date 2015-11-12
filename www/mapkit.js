@@ -1,7 +1,36 @@
-var cordovaRef = window.PhoneGap || window.Cordova || window.cordova;
+var cordovaRef = window.PhoneGap || window.Cordova || window.cordova || window.phonegap;
 
 var MapArray = []
 var MapDict = {}
+
+var MKLocationManager = function () {
+  this.locationAuthStatus = "LOCATION_AUTH_NOT_CHECKED"
+  this.canUseLocation = false
+
+  this.execFailure = function (err) {
+    console.warn("MapKit failed to execute native command:")
+    console.warn(err)
+  }
+
+  this.handleLocationAuthStatus = function (locationAuthStatus) {
+    this.locationAuthStatus = locationAuthStatus
+
+    if (locationAuthStatus == "LOCATION_AUTH_AUTHORIZED" || locationAuthStatus == "LOCATION_AUTH_AUTHORIZED_ALWAYS" || locationAuthStatus == "LOCATION_AUTH_AUTHORIZED_WHEN_IN_USE")
+    {
+      this.canUseLocation = true
+    }
+    else
+    {
+      this.canUseLocation = false
+    }
+  }
+  this.checkLocationAuthStatus = function () {
+    cordovaRef.exec(this.handleLocationAuthStatus, this.execFailure, 'MapKit', 'checkLocationAuthStatus')
+  }
+}
+
+var locationManager = new MKLocationManager()
+locationManager.checkLocationAuthStatus()
 
 var MKMap = function (mapId) {
   if (mapId != undefined)
@@ -23,6 +52,8 @@ var MKMap = function (mapId) {
 
   MapDict[mapId] = this;
   this.mapArrayId = MapArray.push(this) - 1
+
+  this.locationManager = locationManager;
 
   this.created = false
   this.options = {}
@@ -142,5 +173,6 @@ var MKMap = function (mapId) {
 
 window.MKInterface = {}
 window.MKInterface.MKMap = MKMap
+window.MKInterface.locationManager = locationManager
 window.MKInterface.getMapByArrayId = function (aid) { return MapArray[aid] }
 window.MKInterface.getMapByMapId = function (mid) { return MapDict[mid] }
