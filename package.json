@@ -1,0 +1,37 @@
+{
+  "name": "victorzimmer",
+  "version": "0.0.1",
+  "description": "Cordova Plugin for Native Maps",
+  "cordova": {
+    "id": "no.hotdot.mapkit",
+    "platforms": [
+      "ios"
+    ]
+  },
+  "dependencies": {
+    "plugman": "undefined1.0.5"
+  },
+  "devDependencies": {
+    "plugman": "undefined1.0.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/victorzimmer/MapKit.git"
+  },
+  "keywords": [
+    "cordova",
+    "device",
+    "maps",
+    "mapkit",
+    "apple",
+    "applemaps",
+    "ecosystem:cordova",
+    "cordova-ios"
+  ],
+  "author": "Victor Zimmer @ HotDot",
+  "license": "HotDot Open Source License",
+  "bugs": {
+    "url": "https://github.com/victorzimmer/MapKit/issues"
+  },
+  "homepage": "https://github.com/victorzimmer/MapKit#readme"
+}
