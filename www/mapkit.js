@@ -346,13 +346,13 @@ var MKMap = function (mapId) {
       title = arguments[2] || ("Pin " + this.PinsArray.length)
       description = arguments[3] || ""
     }
-    if (Pins[title] != undefined)
+    if (this.Pins[title] != undefined)
     {
-      Pins[title].removePin()
+      this.Pins[title].removePin()
     }
     Pin = new MKSimplePin(this, lat, lon, title, description)
-    Pins[title] = Pin
-    PinsArray.push(Pin)
+    this.Pins[title] = Pin
+    this.PinsArray.push(Pin)
     Pin.createPin()
   }
   this.addSimpleMapPins = function (pinArr) {
@@ -366,8 +366,8 @@ var MKMap = function (mapId) {
       description = pin.description || ""
 
       Pin = new MKSimplePin(this, lat, lon, title, description)
-      Pins[title] = Pin
-      PinsArray.push(Pin)
+      this.Pins[title] = Pin
+      this.PinsArray.push(Pin)
 
       PinsToAdd.push(Pin.createPinArray())
     }
