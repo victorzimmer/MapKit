@@ -5,6 +5,12 @@ var MapDict = {}
 
 var that;
 
+function isPlainObject(o) {
+   return ((o === null) || Array.isArray(o) || typeof o == 'function') ?
+           false
+          :(typeof o == 'object');
+}
+
 var MKLocationManager = function () {
   this.locationAuthStatus = "LOCATION_AUTH_NOT_CHECKED"
   this.canUseLocation = false
@@ -333,7 +339,7 @@ var MKMap = function (mapId) {
   }
 
   this.addSimpleMapPin = function (data) {
-    if (data != undefined && data.title != undefined)
+    if (data != undefined && isPlainObject(data))
     {
       lat = data.lat || 58
       lon = data.lon || 11
