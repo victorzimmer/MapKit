@@ -85,26 +85,68 @@ var MKMap = function (mapId) {
   this.options.mapBuildings = false
   this.options.mapPointsOfInterest = true
   this.options.mapUserLocation = false
-  this.setBounds = function (height, width) {
+  this.setBounds = function (data) {
+    height = data.height
+    width = data.width
     if (this.created)
     {
-
+      if (height != null && width != null)
+      {
+        this.options.height = height
+        this.options.width = width
+        that = this
+        cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'changeMapBounds', [this.mapId, height, width])
+      }
+      else if (height != null) {
+        this.options.height = height
+        that = this
+        cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'changeMapHeight', [this.mapId, height])
+      }
+      else if (width != null) {
+        this.options.width = width
+        that = this
+        cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'changeMapWidth', [this.mapId, width])
+      }
+      else {
+        console.warn(`#MKMAP() setBounds called with null-like parameters`)
+      }
     }
     else
     {
-      this.options.height = height
-      this.options.width = width
+      this.options.height = height || this.options.height
+      this.options.width = width || this.options.width
     }
   }
-  this.setPosition = function (x, y) {
+  this.setPosition = function (data) {
+    xPos = data.xPos
+    yPos = data.yPos
     if (this.created)
     {
-
+      if (xPos != null && yPos != null)
+      {
+        this.options.xPos = xPos
+        this.options.yPos = yPos
+        that = this
+        cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'changeMapPosition', [this.mapId, xPos, yPos])
+      }
+      else if (xPos != null) {
+        this.options.xPos = xPos
+        that = this
+        cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'changeMapXPos', [this.mapId, xPos])
+      }
+      else if (yPos != null) {
+        this.options.yPos = yPos
+        that = this
+        cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'changeMapYPos', [this.mapId, yPos])
+      }
+      else {
+        console.warn(`#MKMAP() setBounds called with null-like parameters`)
+      }
     }
     else
     {
-      this.options.xPos = x
-      this.options.yPos = y
+      this.options.xPos = x || this.options.xPos
+      this.options.yPos = y || this.options.yPos
     }
   }
   this.execSuccess = function (data) {

@@ -237,7 +237,7 @@ UIWebView* webView;
     NSString* callbackId = [command callbackId];
     NSString* mapId = [[command arguments] objectAtIndex:0];
     CGFloat height = [[[command arguments] objectAtIndex:1]floatValue];
-    CGFloat width = [[[command arguments] objectAtIndex:1]floatValue];
+    CGFloat width = [[[command arguments] objectAtIndex:2]floatValue];
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
     [mapView setFrame:CGRectMake(mapView.frame.origin.x, mapView.frame.origin.y, width, height)];
@@ -295,7 +295,7 @@ UIWebView* webView;
     NSString* callbackId = [command callbackId];
     NSString* mapId = [[command arguments] objectAtIndex:0];
     CGFloat XPos = [[[command arguments] objectAtIndex:1]floatValue];
-    CGFloat YPos = [[[command arguments] objectAtIndex:1]floatValue];
+    CGFloat YPos = [[[command arguments] objectAtIndex:2]floatValue];
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
     [mapView setFrame:CGRectMake(XPos, YPos, mapView.frame.size.width, mapView.frame.size.height)];
