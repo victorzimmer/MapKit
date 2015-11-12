@@ -3,6 +3,8 @@ var cordovaRef = window.PhoneGap || window.Cordova || window.cordova || window.p
 var MapArray = []
 var MapDict = {}
 
+var that;
+
 var MKLocationManager = function () {
   this.locationAuthStatus = "LOCATION_AUTH_NOT_CHECKED"
   this.canUseLocation = false
@@ -14,20 +16,21 @@ var MKLocationManager = function () {
 
   this.handleLocationAuthStatus = function (locationAuthStatus) {
     console.log(locationAuthStatus)
-    console.log(this)
+    console.log(that)
 
-    this.locationAuthStatus = locationAuthStatus
+    that.locationAuthStatus = locationAuthStatus
 
     if (locationAuthStatus == "LOCATION_AUTH_AUTHORIZED" || locationAuthStatus == "LOCATION_AUTH_AUTHORIZED_ALWAYS" || locationAuthStatus == "LOCATION_AUTH_AUTHORIZED_WHEN_IN_USE")
     {
-      this.canUseLocation = true
+      that.canUseLocation = true
     }
     else
     {
-      this.canUseLocation = false
+      that.canUseLocation = false
     }
   }
   this.checkLocationAuthStatus = function () {
+    that = this; //Fix for this inside callback
     cordovaRef.exec(function (data) {this.handleLocationAuthStatus(data)}, this.execFailure, 'MapKit', 'checkLocationAuthStatus')
   }
 }
