@@ -145,6 +145,13 @@ Returns a new object of the type `MKMap`.
 
 `MKMap.userLocationVisible(callback)` (Method) Returns a Boolean representing the visibility of the users current location. If _true_ the users location IS showing on the map, if _false_ its not. If it's enabled and not showing its either because the system is unable to get its current location or because your app is not authorized to recieve location. Callback is **required** or the method call will be ignored.
 
+## Upcoming Features
+
+* Map pins
+* Map click events with JavaScript callback
+* Android support
+* Windows Phone support
+
 ## Samples
 
 Sample applications are avaliable in their own repository: [MapKit Samples](https://github.com/victorzimmer/MapKit-Samples)
