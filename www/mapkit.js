@@ -285,6 +285,9 @@ var MKMap = function (mapId) {
     that = this
     cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'hideMapUserLocation', [this.mapId])
   }
+  this.userLocationVisible = function (callback) {
+    cordovaRef.exec(callback, this.execFailure, 'MapKit', 'isShowingUserLocation', [this.mapId])
+  }
 
   this.showMapPointsOfInterest = function () {
     this.options.mapPointsOfInterest = true
