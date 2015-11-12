@@ -55,6 +55,35 @@ var MKLocationManager = function () {
 var locationManager = new MKLocationManager()
 locationManager.checkLocationAuthStatus()
 
+
+var MKSimplePin = function (map, lat, lon, title, description) {
+  this.map = map
+  this.lat = lat
+  this.lon = lon
+  this.title = title
+  this.description = description
+  this.execSuccess = function (data) {
+    console.log(`#MKSimplePin(${that.title}) Executed native command successfully`)
+    console.log(data)
+  }
+  this.execFailure = function (err) {
+    console.warn(`#MKSimplePin(${that.title}) MapKit failed to execute native command:`)
+    console.warn(err)
+  }
+  this.createPin = function () {
+    that = this
+    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'addSimpleMapPin', [this.map.mapId, this.lat, this.lon, this.title, this.description])
+  }
+  this.createPinArray = function () {
+    return [this.lat, this.lon, this.title, this.description]
+  }
+  this.removePin = function () {
+    that = this
+    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'removeMapPin', [this.map.mapId, this.title])
+  }
+}
+
+
 var MKMap = function (mapId) {
   if (mapId != undefined)
   {
@@ -91,6 +120,8 @@ var MKMap = function (mapId) {
   this.options.mapBuildings = false
   this.options.mapPointsOfInterest = true
   this.options.mapUserLocation = false
+  this.PinsArray = []
+  this.Pins = {}
   this.setBounds = function (data) {
     if (Number.isFinite(arguments[0]) && Number.isFinite(arguments[1]))
     {
@@ -299,7 +330,61 @@ var MKMap = function (mapId) {
     that = this
     cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'hideMapPointsOfInterest', [this.mapId])
   }
+
+  this.addSimpleMapPin = function (data) {
+    if (data != undefined && data.title != undefined)
+    {
+      lat = data.lat || 58
+      lon = data.lon || 11
+      title = data.title || ("Pin " + this.PinsArray.length)
+      description = data.description || ""
+    }
+    else
+    {
+      lat = arguments[0] || 58
+      lon = arguments[1] || 11
+      title = arguments[2] || ("Pin " + this.PinsArray.length)
+      description = arguments[3] || ""
+    }
+    if (Pins[title] != undefined)
+    {
+      Pins[title].removePin()
+    }
+    Pin = new MKSimplePin(this, lat, lon, title, description)
+    Pins[title] = Pin
+    PinsArray.push(Pin)
+    Pin.createPin()
+  }
+  this.addSimpleMapPins = function (pinArr) {
+    PinsToAdd = []
+    for (var i in pinArr)
+    {
+      pin = pinArr[i]
+      lat = pin.lat || 58
+      lon = pin.lon || 11
+      title = pin.title || ("Pin " + this.PinsArray.length)
+      description = pin.description || ""
+
+      Pin = new MKSimplePin(this, lat, lon, title, description)
+      Pins[title] = Pin
+      PinsArray.push(Pin)
+
+      PinsToAdd.push(Pin.createPinArray())
+    }
+    that = this
+    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'addSimpleMapPins', [this.mapId, PinsToAdd])
+  }
+  this.removeAllMapPins = function () {
+    that = this
+    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'removeAllMapPins', [this.mapId])
+  }
+
+
+
+
 }
+
+
 
 window.MKInterface = {}
 window.MKInterface.MKMap = MKMap

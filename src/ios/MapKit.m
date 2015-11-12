@@ -547,6 +547,112 @@ UIWebView* webView;
 
 }
 
+- (void)addSimpleMapPin:(CDVInvokedUrlCommand*)command
+{
+    NSString* callbackId = [command callbackId];
+    NSString* mapId = [[command arguments] objectAtIndex:0];
+    CGFloat lat = [[[command arguments] objectAtIndex:1]floatValue];
+    CGFloat lon = [[[command arguments] objectAtIndex:2]floatValue];
+    NSString* title = [[command arguments] objectAtIndex:3];
+    NSString* description = [[command arguments] objectAtIndex:4];
+    MKMapView* mapView = [self.webView viewWithTag:mapId];
+
+    MKPointAnnotation* pin = [[MKPointAnnotation alloc]init];
+    pin.coordinate = CLLocationCoordinate2DMake(lat, lon);
+    pin.title = title;
+    pin.subtitle = description;
+
+
+    [mapView addAnnotation:pin];
+
+    CDVPluginResult* result = [CDVPluginResult
+                               resultWithStatus:CDVCommandStatus_OK
+                               messageAsString:mapId];
+
+    [self success:result callbackId:callbackId];
+
+}
+
+- (void)addSimpleMapPins:(CDVInvokedUrlCommand*)command
+{
+    NSString* callbackId = [command callbackId];
+    NSString* mapId = [[command arguments] objectAtIndex:0];
+    MKMapView* mapView = [self.webView viewWithTag:mapId];
+
+    NSArray* pins = [[command arguments] objectAtIndex:1];
+    NSMutableArray* Pins = [[NSMutableArray alloc] init];
+
+    for (int i = 0; i < pins.count; i++)
+    {
+        NSArray* pinInfo = [pins objectAtIndex:i];
+
+        CGFloat lat = [[pinInfo objectAtIndex:0]floatValue];
+        CGFloat lon = [[pinInfo objectAtIndex:1]floatValue];
+        NSString* title = [pinInfo objectAtIndex:2];
+        NSString* description = [pinInfo objectAtIndex:3];
+
+        MKPointAnnotation* pin = [[MKPointAnnotation alloc]init];
+        pin.coordinate = CLLocationCoordinate2DMake(lat, lon);
+        pin.title = title;
+        pin.subtitle = description;
+
+        [Pins addObject:pin];
+    }
+
+    [mapView addAnnotations:Pins];
+
+    CDVPluginResult* result = [CDVPluginResult
+                               resultWithStatus:CDVCommandStatus_OK
+                               messageAsString:mapId];
+
+    [self success:result callbackId:callbackId];
+
+}
+
+- (void)removeMapPin:(CDVInvokedUrlCommand*)command
+{
+    NSString* callbackId = [command callbackId];
+    NSString* mapId = [[command arguments] objectAtIndex:0];
+    NSString* pinTitle = [[command arguments] objectAtIndex:1];
+    MKMapView* mapView = [self.webView viewWithTag:mapId];
+
+    NSArray* pins = [mapView annotations];
+
+    for (int i = 0; i < pins.count; i++)
+    {
+        MKPointAnnotation* pin = [pins objectAtIndex:i];
+        if (pin.title == pinTitle)
+        {
+            [mapView removeAnnotation:pin];
+        }
+    }
+
+
+    CDVPluginResult* result = [CDVPluginResult
+                               resultWithStatus:CDVCommandStatus_OK
+                               messageAsString:mapId];
+
+    [self success:result callbackId:callbackId];
+
+}
+
+- (void)removeAllMapPins:(CDVInvokedUrlCommand*)command
+{
+    NSString* callbackId = [command callbackId];
+    NSString* mapId = [[command arguments] objectAtIndex:0];
+    MKMapView* mapView = [self.webView viewWithTag:mapId];
+
+    [mapView removeAnnotations:mapView.annotations];
+
+
+    CDVPluginResult* result = [CDVPluginResult
+                               resultWithStatus:CDVCommandStatus_OK
+                               messageAsString:mapId];
+
+    [self success:result callbackId:callbackId];
+
+}
+
 
 
 
