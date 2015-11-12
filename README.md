@@ -1,11 +1,12 @@
 # MapKit
+## Current Version: 0.0.2
 
 New version of MapKit (there seem to be lots of older versions around). Currently iOS-only, but will support iOS, Android and Windows Phone.
 
-MapKit is a plugin designed to provide Cordova/PhoneGap apps with the ability to create, modify, use and destroy mapViews that are separate from 
+MapKit is a plugin designed to provide Cordova/PhoneGap apps with the ability to create, modify, use and destroy mapViews that are separate from
 
 MapKit uses Apple Maps on iOS, Google Maps on Android and Bing Maps on Windows Phone.
-API tries to be consistent over all platforms and will automatically figure out the current platform and react appropriately. 
+API tries to be consistent over all platforms and will automatically figure out the current platform and react appropriately.
 
 ## Installation
 

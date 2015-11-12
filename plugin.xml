@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
-    id="no.hotdot.mapkit" version="0.0.1">
+    id="no.hotdot.mapkit" version="0.0.2">
     <name>MapKit</name>
     <description>Cordova Plugin for Native Maps</description>
     <license>HotDot Open Source License</license>

@@ -1,6 +1,6 @@
 {
   "name": "mapkit",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Cordova Plugin for Native Maps",
   "cordova": {
     "id": "no.hotdot.mapkit",
