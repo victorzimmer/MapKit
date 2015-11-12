@@ -158,7 +158,7 @@ Sample applications are avaliable in their own repository: [MapKit Samples](http
 
 ## License
 
-MapKit is licensed under the HotDot Open Source License. (Link will come as soon as license is written.)
+MapKit is licensed under the HotDot Open Source License. [HotDot Open Source License](http://hotdot.no/hotdot_open-source_license.txt).
 
 In short, you can use MapKit however you want both privately and commerically. You may modify and redistribute MapKit (or if you really want to just redistribute it). If you make useful changes or fix bugs reporting them here is appriciated, but not required.
 
