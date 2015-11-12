@@ -38,9 +38,11 @@ var MKLocationManager = function () {
     cordovaRef.exec(this.handleLocationAuthStatus, this.execFailure, 'MapKit', 'checkLocationAuthStatus')
   }
   this.requestLocationAlwaysPermission = function () {
+    that = this
     cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'requestLocationAlwaysPermission')
   }
   this.requestLocationWhenInUsePermission = function () {
+    that = this
     cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'requestLocationWhenInUsePermission')
   }
 }
@@ -106,36 +108,44 @@ var MKMap = function (mapId) {
     }
   }
   this.execSuccess = function (data) {
-    console.log(`#MKMap(${this.mapId}) Executed native command successfully`)
+    console.log(`#MKMap(${that.mapId}) Executed native command successfully`)
     console.log(data)
   }
   this.execFailure = function (err) {
-    console.warn(`#MKMap(${this.mapId}) MapKit failed to execute native command:`)
+    console.warn(`#MKMap(${that.mapId}) MapKit failed to execute native command:`)
     console.warn(err)
   }
   this.createMap = function (c) {
     console.log(`#Map(${this.mapId}) Creating map`)
+    this.created = true
+    that = this
     cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'createMapView', [this.mapId, this.options.height, this.options.width, this.options.xPos, this.options.yPos])
   }
   this.destroyMap = function () {
     console.log(`#Map(${this.mapId}) Destroying map`)
+    this.created = false
+    that = this
     cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'removeMapView', [this.mapId])
   }
   this.showMap = function () {
     console.log(`#Map(${this.mapId}) Showing map`)
+    that = this
     cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'showMapView', [this.mapId])
   }
   this.hideMap = function () {
     console.log(`#Map(${this.mapId}) Hiding map`)
+    that = this
     cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'hideMapView', [this.mapId])
   }
 
   this.showMapScale = function () {
     this.options.mapScale = true
+    that = this
     cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'showMapScale', [this.mapId])
   }
   this.hideMapScale = function () {
     this.options.mapScale = false
+    that = this
     cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'hideMapScale', [this.mapId])
   }
 
@@ -146,28 +156,34 @@ var MKMap = function (mapId) {
       this.locationManager.requestLocationWhenInUsePermission()
     }
     this.options.mapCompass = true
+    that = this
     cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'showMapCompass', [this.mapId])
   }
   this.hideMapCompass = function () {
     this.options.mapCompass = false
+    that = this
     cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'hideMapCompass', [this.mapId])
   }
 
   this.showMapTraffic = function () {
     this.options.mapTraffic = true
+    that = this
     cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'showMapTraffic', [this.mapId])
   }
   this.hideMapTraffic = function () {
     this.options.mapTraffic = false
+    that = this
     cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'hideMapTraffic', [this.mapId])
   }
 
   this.showMapBuildings = function () {
     this.options.mapBuildings = true
+    that = this
     cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'showMapBuildings', [this.mapId])
   }
   this.hideMapBuildings = function () {
     this.options.mapBuildings = false
+    that = this
     cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'hideMapBuildings', [this.mapId])
   }
 
@@ -178,28 +194,25 @@ var MKMap = function (mapId) {
       this.locationManager.requestLocationWhenInUsePermission()
     }
     this.options.mapUserLocation = true
+    that = this
     cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'showMapUserLocation', [this.mapId])
   }
   this.hideMapUserLocation = function () {
     this.options.mapUserLocation = false
+    that = this
     cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'hideMapUserLocation', [this.mapId])
   }
 
   this.showMapPointsOfInterest = function () {
     this.options.mapPointsOfInterest = true
+    that = this
     cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'showMapPointsOfInterest', [this.mapId])
   }
   this.hideMapPointsOfInterest = function () {
     this.options.mapPointsOfInterest = false
+    that = this
     cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'hideMapPointsOfInterest', [this.mapId])
   }
-
-
-
-  this.destroyMap = function () {
-
-  }
-
 }
 
 window.MKInterface = {}
