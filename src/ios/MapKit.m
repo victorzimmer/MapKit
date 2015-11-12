@@ -158,6 +158,124 @@ UIWebView* webView;
 
 }
 
+- (void)changeMapHeight:(CDVInvokedUrlCommand*)command
+{
+    NSString* callbackId = [command callbackId];
+    NSString* mapId = [[command arguments] objectAtIndex:0];
+    CGFloat height = [[[command arguments] objectAtIndex:1]floatValue];
+    MKMapView* mapView = [self.webView viewWithTag:mapId];
+
+    [mapView setFrame:CGRectMake(mapView.frame.origin.x, mapView.frame.origin.y, mapView.frame.size.width, height)];
+
+
+    CDVPluginResult* result = [CDVPluginResult
+                               resultWithStatus:CDVCommandStatus_OK
+                               messageAsString:mapId];
+
+    [self success:result callbackId:callbackId];
+
+
+}
+
+- (void)changeMapWidth:(CDVInvokedUrlCommand*)command
+{
+    NSString* callbackId = [command callbackId];
+    NSString* mapId = [[command arguments] objectAtIndex:0];
+    CGFloat width = [[[command arguments] objectAtIndex:1]floatValue];
+    MKMapView* mapView = [self.webView viewWithTag:mapId];
+
+    [mapView setFrame:CGRectMake(mapView.frame.origin.x, mapView.frame.origin.y, width, mapView.frame.size.height)];
+
+
+    CDVPluginResult* result = [CDVPluginResult
+                               resultWithStatus:CDVCommandStatus_OK
+                               messageAsString:mapId];
+
+    [self success:result callbackId:callbackId];
+
+
+}
+
+- (void)changeMapBounds:(CDVInvokedUrlCommand*)command
+{
+    NSString* callbackId = [command callbackId];
+    NSString* mapId = [[command arguments] objectAtIndex:0];
+    CGFloat height = [[[command arguments] objectAtIndex:1]floatValue];
+    CGFloat width = [[[command arguments] objectAtIndex:1]floatValue];
+    MKMapView* mapView = [self.webView viewWithTag:mapId];
+
+    [mapView setFrame:CGRectMake(mapView.frame.origin.x, mapView.frame.origin.y, width, height)];
+
+
+    CDVPluginResult* result = [CDVPluginResult
+                               resultWithStatus:CDVCommandStatus_OK
+                               messageAsString:mapId];
+
+    [self success:result callbackId:callbackId];
+
+
+}
+
+- (void)changeMapXPos:(CDVInvokedUrlCommand*)command
+{
+    NSString* callbackId = [command callbackId];
+    NSString* mapId = [[command arguments] objectAtIndex:0];
+    CGFloat XPos = [[[command arguments] objectAtIndex:1]floatValue];
+    MKMapView* mapView = [self.webView viewWithTag:mapId];
+
+    [mapView setFrame:CGRectMake(XPos, mapView.frame.origin.y, mapView.frame.size.width, mapView.frame.size.height)];
+
+
+    CDVPluginResult* result = [CDVPluginResult
+                               resultWithStatus:CDVCommandStatus_OK
+                               messageAsString:mapId];
+
+    [self success:result callbackId:callbackId];
+
+
+}
+
+- (void)changeMapYPos:(CDVInvokedUrlCommand*)command
+{
+    NSString* callbackId = [command callbackId];
+    NSString* mapId = [[command arguments] objectAtIndex:0];
+    CGFloat YPos = [[[command arguments] objectAtIndex:1]floatValue];
+    MKMapView* mapView = [self.webView viewWithTag:mapId];
+
+    [mapView setFrame:CGRectMake(mapView.frame.origin.x, YPos, mapView.frame.size.width, mapView.frame.size.height)];
+
+
+    CDVPluginResult* result = [CDVPluginResult
+                               resultWithStatus:CDVCommandStatus_OK
+                               messageAsString:mapId];
+
+    [self success:result callbackId:callbackId];
+
+
+}
+
+- (void)changeMapPosition:(CDVInvokedUrlCommand*)command
+{
+    NSString* callbackId = [command callbackId];
+    NSString* mapId = [[command arguments] objectAtIndex:0];
+    CGFloat XPos = [[[command arguments] objectAtIndex:1]floatValue];
+    CGFloat YPos = [[[command arguments] objectAtIndex:1]floatValue];
+    MKMapView* mapView = [self.webView viewWithTag:mapId];
+
+    [mapView setFrame:CGRectMake(XPos, YPos, mapView.frame.size.width, mapView.frame.size.height)];
+
+
+    CDVPluginResult* result = [CDVPluginResult
+                               resultWithStatus:CDVCommandStatus_OK
+                               messageAsString:mapId];
+
+    [self success:result callbackId:callbackId];
+
+
+}
+
+
+
 - (void)isShowingUserLocation:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
