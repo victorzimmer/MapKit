@@ -463,7 +463,7 @@ function handlePinDragCallback(mapId, title, lat, lon)
 {
   // console.dir(MapDict.undefined)
   console.log(`Got drag end on Map: ${mapId} on Pin: ${title}`)
-  Pin = MapDict.undefined.Pins[title]
+  Pin = MapDict[mapId].Pins[title]
   Pin.lat = lat
   Pin.lon = lon
   Pin.pinDragCallback(Pin)
