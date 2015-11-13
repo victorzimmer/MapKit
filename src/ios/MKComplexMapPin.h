@@ -10,6 +10,7 @@
 
 @interface MKComplexMapPin : MKPointAnnotation
 {
+    NSString* mapId;
     CGFloat pinColor;
     BOOL draggable;
     BOOL canShowCallout;
@@ -18,6 +19,7 @@
     NSString* imageLocation;
 }
 
+@property(nonatomic, readwrite) NSString* mapId;
 @property(nonatomic, readwrite) CGFloat pinColor;
 @property(nonatomic, readwrite) BOOL draggable;
 @property(nonatomic, readwrite) BOOL canShowCallout;

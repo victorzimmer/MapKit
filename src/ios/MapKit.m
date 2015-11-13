@@ -682,6 +682,7 @@ UIWebView* webView;
     pinAnnotation.coordinate = CLLocationCoordinate2DMake(lat, lon);
     pinAnnotation.title = title;
     pinAnnotation.subtitle = description;
+    pinAnnotation.mapId = mapId;
 
 
 
@@ -749,7 +750,7 @@ UIWebView* webView;
         NSLog(@"Clicked Complex Pin Infobutton");
         NSLog(pin.title);
 
-        NSString* jsString = [NSString stringWithFormat:@"MKInterface.pinInfoClickCallback(\"%@\");", pin.title];
+        NSString* jsString = [NSString stringWithFormat:@"MKInterface.pinInfoClickCallback(\"%@,%@\");", pin.mapId, pin.title];
         [self.webView stringByEvaluatingJavaScriptFromString:jsString];
     }
 
