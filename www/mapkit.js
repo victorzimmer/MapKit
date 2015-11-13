@@ -462,10 +462,12 @@ function handlePinInfoClickCallback(mapId, title)
 function handlePinDragCallback(mapId, title, lat, lon)
 {
   console.dir(MapDict.undefined)
-  console.log(`Got info click on Map: ${mapId} on Pin: ${title}`)
-  MapDict.undefined.Pins[title].lat = lat
-  MapDict.undefined.Pins[title].lon = lon
-  MapDict.undefined.Pins[title].pinDragCallback(MapDict.undefined.Pins[title])
+  console.log(`Got drag end on Map: ${mapId} on Pin: ${title}`)
+  Pin = MapDict.undefined.Pins[title]
+  console.log(Pin)
+  Pin.lat = lat
+  Pin.lon = lon
+  Pin.pinDragCallback(Pin)
 }
 
 window.MKInterface = {}
