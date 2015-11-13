@@ -452,11 +452,13 @@ var MKMap = function (mapId) {
 
 function handlePinInfoClickCallback(title)
 {
-  Pins[title].infoClickCallback(Pins[title])
+  MKInterface.__internal__.Pins[title].infoClickCallback(Pins[title])
 }
 
 
 window.MKInterface = {}
+window.MKInterface.__internal__.Pins = Pins
+window.MKInterface.__internal__.PinsArray = PinsArray
 window.MKInterface.MKMap = MKMap
 window.MKInterface.locationManager = locationManager
 window.MKInterface.getMapByArrayId = function (aid) { return MapArray[aid] }
