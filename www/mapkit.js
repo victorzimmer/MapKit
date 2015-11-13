@@ -90,6 +90,39 @@ var MKSimplePin = function (map, lat, lon, title, description) {
   }
 }
 
+var MKComplexPin = function (map, lat, lon, title, description, pinColor, draggable, canShowCallout, showInfoButton, infoClickCallback) {
+  this.map = map
+  this.lat = lat
+  this.lon = lon
+  this.title = title
+  this.description = description
+  this.pinColor = pinColor
+  this.draggable = draggable
+  this.canShowCallout = canShowCallout
+  this.showInfoButton = showInfoButton
+  this.infoClickCallback = infoClickCallback
+  this.execSuccess = function (data) {
+    console.log(`#MKSimplePin(${that.title}) Executed native command successfully`)
+    console.log(data)
+  }
+  this.execFailure = function (err) {
+    console.warn(`#MKSimplePin(${that.title}) MapKit failed to execute native command:`)
+    console.warn(err)
+  }
+  this.createPin = function () {
+    that = this
+    console.log(`Creating pin: ${[this.map.mapId, this.lat, this.lon, this.title, this.description].join(" - ")}`)
+    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'addSimpleMapPin', [this.map.mapId, this.lat, this.lon, this.title, this.description, ((this.pinColor == "purple")?3:((this.pinColor == "green")?2:1)), (this.draggable)?1:0, (this.canShowCallout)?1:0, (this.showInfoButton)?1:0]
+  }
+  this.createPinArray = function () {
+    return [this.lat, this.lon, this.title, this.description]
+  }
+  this.removePin = function () {
+    that = this
+    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'removeMapPin', [this.map.mapId, this.title])
+  }
+}
+
 
 var MKMap = function (mapId) {
   if (mapId != undefined)
@@ -354,7 +387,6 @@ var MKMap = function (mapId) {
       title = arguments[2] || ("Pin " + this.PinsArray.length)
       description = arguments[3] || ""
     }
-    console.log(lat)
     if (this.Pins[title] != undefined)
     {
       this.Pins[title].removePin()
@@ -374,6 +406,10 @@ var MKMap = function (mapId) {
       title = pin.title || ("Pin " + this.PinsArray.length)
       description = pin.description || ""
 
+      if (this.Pins[title] != undefined)
+      {
+        this.Pins[title].removePin()
+      }
       Pin = new MKSimplePin(this, lat, lon, title, description)
       this.Pins[title] = Pin
       this.PinsArray.push(Pin)
@@ -382,6 +418,27 @@ var MKMap = function (mapId) {
     }
     that = this
     cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'addSimpleMapPins', [this.mapId, PinsToAdd])
+  }
+  this.addComplexMapPin = function (data) {
+    data = data || {}
+    lat = data.lat || 58
+    lon = data.lon || 11
+    title = data.title || ("Pin " + this.PinsArray.length)
+    description = data.description || ""
+    pinColor = data.pinColor || "red" // red/green/purple
+    draggable = data.draggable || false;
+    canShowCallout = data.canShowCallout || true;
+    showInfoButton = data.showInfoButton || false;
+    infoClickCallback = data.infoClickCallback || function (pin) { console.log("PinInfo was clicked: "+pin.title) }
+
+    if (this.Pins[title] != undefined)
+    {
+      this.Pins[title].removePin()
+    }
+    Pin = new MKComplexPin(this, lat, lon, title, description, pinColor, draggable, canShowCallout, showInfoButton, infoClickCallback)
+    this.Pins[title] = Pin
+    this.PinsArray.push(Pin)
+    Pin.createPin()
   }
   this.removeAllMapPins = function () {
     that = this
@@ -393,6 +450,10 @@ var MKMap = function (mapId) {
 
 }
 
+function handlePinInfoClickCallback(title)
+{
+  Pins[title].infoClickCallback(Pins[title])
+}
 
 
 window.MKInterface = {}
@@ -400,4 +461,4 @@ window.MKInterface.MKMap = MKMap
 window.MKInterface.locationManager = locationManager
 window.MKInterface.getMapByArrayId = function (aid) { return MapArray[aid] }
 window.MKInterface.getMapByMapId = function (mid) { return MapDict[mid] }
-window.MKInterface.pinInfoClickCallback = function (title) {console.log(title)}
+window.MKInterface.pinInfoClickCallback = handlePinInfoClickCallback

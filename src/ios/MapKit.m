@@ -672,6 +672,7 @@ UIWebView* webView;
     CGFloat pinColor = [[[command arguments] objectAtIndex:5] floatValue];
     CGFloat draggable = [[[command arguments] objectAtIndex:6] floatValue];
     CGFloat canShowCallout = [[[command arguments] objectAtIndex:7] floatValue];
+    CGFloat showInfoButton = [[[command arguments] objectAtIndex:8] floatValue];
 //    CGFloat inaccuracyRadius = [[[command arguments] objectAtIndex:6]floatValue];
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
@@ -719,6 +720,15 @@ UIWebView* webView;
         pinAnnotation.canShowCallout = NO;
     }
 
+    if (showInfoButton > 0)
+    {
+        pinAnnotation.showInfoButton = YES;
+    }
+    else
+    {
+        pinAnnotation.showInfoButton = NO;
+    }
+
 //    pinAnnotation.canShowCallout = canShowCallout;
 
     [mapView addAnnotation:pinAnnotation];
@@ -763,8 +773,11 @@ UIWebView* webView;
             pav.draggable = pin.draggable;
             pav.canShowCallout = pin.canShowCallout;
 
-            UIButton* info = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-            pav.rightCalloutAccessoryView = info;
+            if (pin.showInfoButton)
+            {
+              UIButton* info = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+              pav.rightCalloutAccessoryView = info;
+            }
         }
         else if ([annotation isKindOfClass:[MKPointAnnotation class]])
         {
