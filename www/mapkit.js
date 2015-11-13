@@ -454,7 +454,7 @@ function handlePinInfoClickCallback(mapId, title)
 {
   console.dir(MapDict)
   console.log(`Got info click on Map: ${mapId} on Pin: ${title}`)
-  MapDict[mapId].Pins[title].infoClickCallback(Pins[title])
+  MapDict.undefined.Pins[title].infoClickCallback(Pins[title])
 }
 
 
