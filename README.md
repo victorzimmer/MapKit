@@ -1,5 +1,5 @@
 # MapKit
-## Current Version: 0.0.2
+## Current Version: 0.0.3
 
 New version of MapKit (there seem to be lots of older versions around). Currently iOS-only, but will support iOS, Android and Windows Phone.
 
@@ -149,8 +149,11 @@ Returns a new object of the type `MKMap`.
 
 ## Upcoming Features
 
-* Map pins [Since v0.0.2 you can create standard red pins]
-* Map and pin click events with JavaScript callback
+* Map pins [Partially Completed]
+[Since v0.0.2 you can create standard red pins]
+[Since v0.0.3 you can create complex pins, see docs]
+* Map and pin click events with JavaScript callback [Partially Completed]
+[Since v0.0.3 The additon of Complex Pins supports callbacks for click and move]
 * Implementation of Polygons
 * Ability to place HTML elements on top of WebView
 * Android support
