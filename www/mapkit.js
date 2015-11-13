@@ -400,3 +400,4 @@ window.MKInterface.MKMap = MKMap
 window.MKInterface.locationManager = locationManager
 window.MKInterface.getMapByArrayId = function (aid) { return MapArray[aid] }
 window.MKInterface.getMapByMapId = function (mid) { return MapDict[mid] }
+window.MKInterface.pinInfoClickCallback = function (title) {console.log(title)}

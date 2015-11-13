@@ -9,19 +9,25 @@
 #import "MapKit.h"
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
+#import "MKComplexMapPin.h"
 
 //@interface ViewController : UIViewController <MKMapViewDelegate>
+
+
 
 @implementation MapKit
 
 CLLocationManager* locationManager;
 UIWebView* webView;
 
+//NSMutableDictionary* pinColors;
 
 - (id)init
 {
 
 }
+
+
 
 - (void)test:(CDVInvokedUrlCommand*)command
 {
@@ -132,6 +138,8 @@ UIWebView* webView;
     mapView.tag = mapId;
     mapView.delegate = self;
     [webView addSubview:mapView];
+
+
 
 
     CDVPluginResult* result = [CDVPluginResult
@@ -652,6 +660,134 @@ UIWebView* webView;
     [self success:result callbackId:callbackId];
 
 }
+
+- (void)addComplexMapPin:(CDVInvokedUrlCommand*)command
+{
+    NSString* callbackId = [command callbackId];
+    NSString* mapId = [[command arguments] objectAtIndex:0];
+    CGFloat lat = [[[command arguments] objectAtIndex:1]floatValue];
+    CGFloat lon = [[[command arguments] objectAtIndex:2]floatValue];
+    NSString* title = [[command arguments] objectAtIndex:3];
+    NSString* description = [[command arguments] objectAtIndex:4];
+    CGFloat pinColor = [[[command arguments] objectAtIndex:5] floatValue];
+    CGFloat draggable = [[[command arguments] objectAtIndex:6] floatValue];
+    CGFloat canShowCallout = [[[command arguments] objectAtIndex:7] floatValue];
+//    CGFloat inaccuracyRadius = [[[command arguments] objectAtIndex:6]floatValue];
+    MKMapView* mapView = [self.webView viewWithTag:mapId];
+
+
+
+    MKComplexMapPin* pinAnnotation = [[MKComplexMapPin alloc] init];
+    pinAnnotation.coordinate = CLLocationCoordinate2DMake(lat, lon);
+    pinAnnotation.title = title;
+    pinAnnotation.subtitle = description;
+
+
+
+    if (pinColor == 1)
+    {
+        pinAnnotation.pinColor = MKPinAnnotationColorRed;
+    }
+    else if (pinColor == 2)
+    {
+        pinAnnotation.pinColor = MKPinAnnotationColorGreen;
+    }
+    else if (pinColor == 3)
+    {
+        pinAnnotation.pinColor = MKPinAnnotationColorPurple;
+    }
+    else
+    {
+        pinAnnotation.pinColor = MKPinAnnotationColorRed;
+    }
+
+    if (draggable > 0)
+    {
+        pinAnnotation.draggable = YES;
+    }
+    else
+    {
+        pinAnnotation.draggable = NO;
+    }
+
+    if (canShowCallout > 0)
+    {
+        pinAnnotation.canShowCallout = YES;
+    }
+    else
+    {
+        pinAnnotation.canShowCallout = NO;
+    }
+
+//    pinAnnotation.canShowCallout = canShowCallout;
+
+    [mapView addAnnotation:pinAnnotation];
+
+    CDVPluginResult* result = [CDVPluginResult
+                               resultWithStatus:CDVCommandStatus_OK
+                               messageAsString:mapId];
+
+    [self success:result callbackId:callbackId];
+
+}
+
+-(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
+    id <MKAnnotation> annotation = [view annotation];
+    if ([annotation isKindOfClass:[MKComplexMapPin class]])
+    {
+        MKComplexMapPin *pin = (MKComplexMapPin *)annotation;
+        NSLog(@"Clicked Complex Pin Infobutton");
+        NSLog(pin.title);
+
+        NSString* jsString = [NSString stringWithFormat:@"MKInterface.pinInfoClickCallback(\"%@\");", pin.title];
+        [self.webView stringByEvaluatingJavaScriptFromString:jsString];
+    }
+
+}
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
+{
+    if ([annotation isKindOfClass:[MKUserLocation class]])
+        return nil;
+
+    static NSString *reuseId = @"pin";
+    MKPinAnnotationView *pav = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:reuseId];
+    if (pav == nil)
+    {
+        if ([annotation isKindOfClass:[MKComplexMapPin class]])
+        {
+            pav = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:reuseId];
+
+            MKComplexMapPin *pin = (MKComplexMapPin *)annotation;
+            pav.pinColor = pin.pinColor;
+            pav.draggable = pin.draggable;
+            pav.canShowCallout = pin.canShowCallout;
+
+            UIButton* info = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+            pav.rightCalloutAccessoryView = info;
+        }
+        else if ([annotation isKindOfClass:[MKPointAnnotation class]])
+        {
+            pav = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:reuseId];
+
+            pav.canShowCallout = YES;
+        }
+
+
+//        pav.draggable = YES;
+//        pav.canShowCallout = YES;
+//        MKComplexMapPin* pinAnnotation = [mapView ];
+//        pav.pinColor = pinAnnotation.pinColor;
+    }
+    else
+    {
+        pav.annotation = annotation;
+    }
+
+    return pav;
+}
+
+
 
 
 
