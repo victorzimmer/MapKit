@@ -16,5 +16,7 @@
         </config-file>
         <header-file src="src/ios/MapKit.h" />
         <source-file src="src/ios/MapKit.m" />
+        <header-file src="src/ios/MKComplexMapPin.h" />
+        <source-file src="src/ios/MKComplexMapPin.m" />
     </platform>
 </plugin>
