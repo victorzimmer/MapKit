@@ -454,18 +454,16 @@ var MKMap = function (mapId) {
 
 function handlePinInfoClickCallback(mapId, title)
 {
-  console.dir(MapDict.undefined)
+  // console.dir(MapDict.undefined)
   console.log(`Got info click on Map: ${mapId} on Pin: ${title}`)
   MapDict.undefined.Pins[title].infoClickCallback(MapDict.undefined.Pins[title])
 }
 
 function handlePinDragCallback(mapId, title, lat, lon)
 {
-  console.dir(MapDict.undefined)
+  // console.dir(MapDict.undefined)
   console.log(`Got drag end on Map: ${mapId} on Pin: ${title}`)
   Pin = MapDict.undefined.Pins[title]
-  console.log(Pin)
-  console.log(lat + ", " + lon)
   Pin.lat = lat
   Pin.lon = lon
   Pin.pinDragCallback(Pin)
