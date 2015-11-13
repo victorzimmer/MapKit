@@ -746,15 +746,22 @@ UIWebView* webView;
     id <MKAnnotation> annotation = [view annotation];
     if ([annotation isKindOfClass:[MKComplexMapPin class]])
     {
-        MKComplexMapPin *pin = (MKComplexMapPin *)annotation;
-        NSLog(@"Clicked Complex Pin Infobutton");
-        NSLog(pin.title);
-        NSMutableString* jsParam = pin.mapId;
-        [jsParam appendString:@","];
-        [jsParam appendString:pin.title];
+      MKComplexMapPin *pin = (MKComplexMapPin *)annotation;
+      NSLog(@"Clicked Complex Pin Infobutton");
+      NSLog(pin.mapId);
+      NSLog(pin.title);
+      NSMutableString* jsParam = [[NSMutableString alloc] init];
+      [jsParam appendString:@"\""];
+      [jsParam appendString:pin.mapId];
+      [jsParam appendString:@"\""];
+      [jsParam appendString:@","];
+      [jsParam appendString:@"\""];
+      [jsParam appendString:pin.title];
+      [jsParam appendString:@"\""];
+      NSLog(jsParam);
 
-        NSString* jsString = [NSString stringWithFormat:@"MKInterface.pinInfoClickCallback(\"%@\");", jsParam];
-        [self.webView stringByEvaluatingJavaScriptFromString:jsString];
+      NSString* jsString = [NSString stringWithFormat:@"MKInterface.pinInfoClickCallback(%@);", jsParam];
+      [self.webView stringByEvaluatingJavaScriptFromString:jsString];
     }
 
 }
