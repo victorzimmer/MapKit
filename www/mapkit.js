@@ -452,7 +452,7 @@ var MKMap = function (mapId) {
 
 function handlePinInfoClickCallback(mapId, title)
 {
-  console.dir(MapDict)
+  console.dir(MapDict.undefined)
   console.log(`Got info click on Map: ${mapId} on Pin: ${title}`)
   MapDict.undefined.Pins[title].infoClickCallback(Pins[title])
 }
