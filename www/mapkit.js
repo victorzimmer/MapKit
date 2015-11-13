@@ -112,7 +112,7 @@ var MKComplexPin = function (map, lat, lon, title, description, pinColor, dragga
   this.createPin = function () {
     that = this
     console.log(`Creating pin: ${[this.map.mapId, this.lat, this.lon, this.title, this.description].join(" - ")}`)
-    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'addSimpleMapPin', [this.map.mapId, this.lat, this.lon, this.title, this.description, ((this.pinColor == "purple")?3:((this.pinColor == "green")?2:1)), (this.draggable)?1:0, (this.canShowCallout)?1:0, (this.showInfoButton)?1:0]
+    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'addSimpleMapPin', [this.map.mapId, this.lat, this.lon, this.title, this.description, ((this.pinColor == "purple")?3:((this.pinColor == "green")?2:1)), ((this.draggable)?1:0), ((this.canShowCallout)?1:0), ((this.showInfoButton)?1:0)])
   }
   this.createPinArray = function () {
     return [this.lat, this.lon, this.title, this.description]

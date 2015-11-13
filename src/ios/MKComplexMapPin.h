@@ -23,6 +23,6 @@
 @property(nonatomic, readwrite) BOOL canShowCallout;
 @property(nonatomic, readwrite) BOOL showInfoButton;
 @property(nonatomic, readwrite) BOOL customImage;
-@property(nonatomic, readwrite) NSString imageLocation;
+@property(nonatomic, readwrite) NSString* imageLocation;
 
 @end
