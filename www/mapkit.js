@@ -90,7 +90,7 @@ var MKSimplePin = function (map, lat, lon, title, description) {
   }
 }
 
-var MKComplexPin = function (map, lat, lon, title, description, pinColor, draggable, canShowCallout, showInfoButton, infoClickCallback) {
+var MKComplexPin = function (map, lat, lon, title, description, pinColor, draggable, canShowCallout, showInfoButton, pinDragCallback, infoClickCallback) {
   this.map = map
   this.lat = lat
   this.lon = lon
@@ -100,6 +100,7 @@ var MKComplexPin = function (map, lat, lon, title, description, pinColor, dragga
   this.draggable = draggable
   this.canShowCallout = canShowCallout
   this.showInfoButton = showInfoButton
+  this.pinDragCallback = pinDragCallback
   this.infoClickCallback = infoClickCallback
   this.execSuccess = function (data) {
     console.log(`#MKSimplePin(${that.title}) Executed native command successfully`)
@@ -429,13 +430,14 @@ var MKMap = function (mapId) {
     draggable = data.draggable || false;
     canShowCallout = data.canShowCallout || true;
     showInfoButton = data.showInfoButton || false;
+    pinDragCallback = data.pinDragCallback || function (pin) { console.log("Pin was moved: "+pin.title) }
     infoClickCallback = data.infoClickCallback || function (pin) { console.log("PinInfo was clicked: "+pin.title) }
 
     if (this.Pins[title] != undefined)
     {
       this.Pins[title].removePin()
     }
-    Pin = new MKComplexPin(this, lat, lon, title, description, pinColor, draggable, canShowCallout, showInfoButton, infoClickCallback)
+    Pin = new MKComplexPin(this, lat, lon, title, description, pinColor, draggable, canShowCallout, showInfoButton, pinDragCallback, infoClickCallback)
     this.Pins[title] = Pin
     this.PinsArray.push(Pin)
     Pin.createPin()
@@ -457,10 +459,18 @@ function handlePinInfoClickCallback(mapId, title)
   MapDict.undefined.Pins[title].infoClickCallback(MapDict.undefined.Pins[title])
 }
 
+function handlePinDragCallback(mapId, title, lat, lon)
+{
+  console.dir(MapDict.undefined)
+  console.log(`Got info click on Map: ${mapId} on Pin: ${title}`)
+  MapDict.undefined.Pins[title].pinDragCallback(MapDict.undefined.Pins[title])
+}
 
 window.MKInterface = {}
 window.MKInterface.MKMap = MKMap
 window.MKInterface.locationManager = locationManager
 window.MKInterface.getMapByArrayId = function (aid) { return MapArray[aid] }
 window.MKInterface.getMapByMapId = function (mid) { return MapDict[mid] }
-window.MKInterface.pinInfoClickCallback = handlePinInfoClickCallback
+window.MKInterface.__objc__ = {}
+window.MKInterface.__objc__.pinInfoClickCallback = handlePinInfoClickCallback
+window.MKInterface.__objc__.pinDragCallback = handlePinDragCallback

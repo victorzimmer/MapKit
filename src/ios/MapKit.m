@@ -760,11 +760,40 @@ UIWebView* webView;
       [jsParam appendString:@"\""];
       NSLog(jsParam);
 
-      NSString* jsString = [NSString stringWithFormat:@"MKInterface.pinInfoClickCallback(%@);", jsParam];
+      NSString* jsString = [NSString stringWithFormat:@"MKInterface.__objc__.pinInfoClickCallback(%@);", jsParam];
       [self.webView stringByEvaluatingJavaScriptFromString:jsString];
     }
 
 }
+
+-(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view didChangeDragState:(MKAnnotationViewDragState)newState fromOldState:(MKAnnotationViewDragState)oldState {
+    id <MKAnnotation> annotation = [view annotation];
+    if ([annotation isKindOfClass:[MKComplexMapPin class]] && newState == MKAnnotationViewDragStateEnding)
+    {
+        MKComplexMapPin *pin = (MKComplexMapPin *)annotation;
+        NSLog(@"Moved Complex Pin Infobutton");
+        NSLog(pin.mapId);
+        NSLog(pin.title);
+        NSMutableString* jsParam = [[NSMutableString alloc] init];
+        [jsParam appendString:@"\""];
+        [jsParam appendString:pin.mapId];
+        [jsParam appendString:@"\""];
+        [jsParam appendString:@","];
+        [jsParam appendString:@"\""];
+        [jsParam appendString:pin.title];
+        [jsParam appendString:@"\""];
+        [jsParam appendString:@","];
+        [jsParam appendString:[NSString stringWithFormat:@"%f", pin.coordinate.latitude]];
+        [jsParam appendString:@","];
+        [jsParam appendString:[NSString stringWithFormat:@"%f", pin.coordinate.longitude]];
+        NSLog(jsParam);
+
+        NSString* jsString = [NSString stringWithFormat:@"MKInterface.__objc__.pinDragCallback(%@);", jsParam];
+        [self.webView stringByEvaluatingJavaScriptFromString:jsString];
+    }
+
+}
+
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
 {
