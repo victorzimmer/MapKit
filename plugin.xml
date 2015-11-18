@@ -18,5 +18,7 @@
         <source-file src="src/ios/MapKit.m" />
         <header-file src="src/ios/MKComplexMapPin.h" />
         <source-file src="src/ios/MKComplexMapPin.m" />
+        <framework src="MapKit.framework" />
+        <framework src="CoreLocation.framework" />
     </platform>
 </plugin>
