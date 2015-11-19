@@ -349,10 +349,8 @@ UIWebView* webView;
 {
     NSString* callbackId = [command callbackId];
     CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
-    // MKMapView* mapView = [webView viewWithTag:mapId];
+    MKMapView* mapView = [self.webView viewWithTag:mapId];
 
-    UIWindow *mainWindow = [UIApplication sharedApplication].windows[0];
-    MKMapView* mapView = [mainWindow viewWithTag:mapId];
 
 
     NSLog(@"%@", mapView);
