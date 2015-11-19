@@ -745,7 +745,7 @@ UIWebView* webView;
       NSLog(pin.title);
       NSMutableString* jsParam = [[NSMutableString alloc] init];
       [jsParam appendString:@"\""];
-      [jsParam appendString:pin.mapId];
+      [jsParam [NSString stringWithFormat:@"%f", pin.mapId]];
       [jsParam appendString:@"\""];
       [jsParam appendString:@","];
       [jsParam appendString:@"\""];
