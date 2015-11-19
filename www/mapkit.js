@@ -129,7 +129,7 @@ var MKMap = function (mapDictId) {
   if (mapDictId != undefined)
   {
 
-    this.mapDictId = mapId
+    this.mapDictId = mapDictId
     // this.mapArrayId = MapArray.push(this)
   }
   else
@@ -140,12 +140,12 @@ var MKMap = function (mapDictId) {
 
   this.mapId = MapArray.length
 
-  if (MapDict[mapId] != undefined)
+  if (MapDict[mapDictId] != undefined)
   {
-    MapDict[mapId].destroyMap()
+    MapDict[mapDictId].destroyMap()
   }
 
-  MapDict[mapId] = this;
+  MapDict[mapDictId] = this;
   this.mapArrayId = MapArray.push(this) - 1
 
   this.locationManager = locationManager;
