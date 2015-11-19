@@ -78,15 +78,15 @@ var MKSimplePin = function (map, lat, lon, title, description) {
   }
   this.createPin = function () {
     that = this
-    console.log(`Creating pin: ${[this.map.mapId, this.lat, this.lon, this.title, this.description].join(" - ")}`)
-    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'addSimpleMapPin', [this.map.mapId, this.lat, this.lon, this.title, this.description])
+    console.log(`Creating pin: ${[this.map.mapArrayId, this.lat, this.lon, this.title, this.description].join(" - ")}`)
+    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'addSimpleMapPin', [this.map.mapArrayId, this.lat, this.lon, this.title, this.description])
   }
   this.createPinArray = function () {
     return [this.lat, this.lon, this.title, this.description]
   }
   this.removePin = function () {
     that = this
-    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'removeMapPin', [this.map.mapId, this.title])
+    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'removeMapPin', [this.map.mapArrayId, this.title])
   }
 }
 
@@ -103,24 +103,24 @@ var MKComplexPin = function (map, lat, lon, title, description, pinColor, dragga
   this.pinDragCallback = pinDragCallback
   this.infoClickCallback = infoClickCallback
   this.execSuccess = function (data) {
-    console.log(`#MKSimplePin(${that.title}) Executed native command successfully`)
+    console.log(`#MKComplexPin(${that.title}) Executed native command successfully`)
     console.log(data)
   }
   this.execFailure = function (err) {
-    console.warn(`#MKSimplePin(${that.title}) MapKit failed to execute native command:`)
+    console.warn(`#MKComplexPin(${that.title}) MapKit failed to execute native command:`)
     console.warn(err)
   }
   this.createPin = function () {
     that = this
-    console.log(`Creating pin: ${[this.map.mapId, this.lat, this.lon, this.title, this.description].join(" - ")}`)
-    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'addComplexMapPin', [this.map.mapId, this.lat, this.lon, this.title, this.description, ((this.pinColor == "purple")?3:((this.pinColor == "green")?2:1)), ((this.draggable)?1:0), ((this.canShowCallout)?1:0), ((this.showInfoButton)?1:0)])
+    console.log(`Creating pin: ${[this.map.mapArrayId, this.lat, this.lon, this.title, this.description].join(" - ")}`)
+    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'addComplexMapPin', [this.map.mapArrayId, this.lat, this.lon, this.title, this.description, ((this.pinColor == "purple")?3:((this.pinColor == "green")?2:1)), ((this.draggable)?1:0), ((this.canShowCallout)?1:0), ((this.showInfoButton)?1:0)])
   }
   this.createPinArray = function () {
     return [this.lat, this.lon, this.title, this.description]
   }
   this.removePin = function () {
     that = this
-    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'removeMapPin', [this.map.mapId, this.title])
+    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'removeMapPin', [this.map.mapArrayId, this.title])
   }
 }
 
@@ -185,17 +185,17 @@ var MKMap = function (mapId) {
         this.options.height = height
         this.options.width = width
         that = this
-        cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'changeMapBounds', [this.mapId, height, width])
+        cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'changeMapBounds', [this.mapArrayId, height, width])
       }
       else if (height != null) {
         this.options.height = height
         that = this
-        cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'changeMapHeight', [this.mapId, height])
+        cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'changeMapHeight', [this.mapArrayId, height])
       }
       else if (width != null) {
         this.options.width = width
         that = this
-        cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'changeMapWidth', [this.mapId, width])
+        cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'changeMapWidth', [this.mapArrayId, width])
       }
       else {
         console.warn(`#MKMAP(${this.mapId}) setBounds called with null-like parameters`)
@@ -233,17 +233,17 @@ var MKMap = function (mapId) {
         this.options.xPos = xPos
         this.options.yPos = yPos
         that = this
-        cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'changeMapPosition', [this.mapId, xPos, yPos])
+        cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'changeMapPosition', [this.mapArrayId, xPos, yPos])
       }
       else if (xPos != null) {
         this.options.xPos = xPos
         that = this
-        cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'changeMapXPos', [this.mapId, xPos])
+        cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'changeMapXPos', [this.mapArrayId, xPos])
       }
       else if (yPos != null) {
         this.options.yPos = yPos
         that = this
-        cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'changeMapYPos', [this.mapId, yPos])
+        cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'changeMapYPos', [this.mapArrayId, yPos])
       }
       else {
         console.warn(`#MKMAP(${this.mapId}) setPosition called with null-like parameters`)
@@ -273,35 +273,35 @@ var MKMap = function (mapId) {
       console.log(`#Map(${this.mapId}) Creating map`)
       this.created = true
       that = this
-      cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'createMapView', [this.mapId, this.options.height, this.options.width, this.options.xPos, this.options.yPos])
+      cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'createMapView', [this.mapArrayId, this.options.height, this.options.width, this.options.xPos, this.options.yPos])
     }
   }
   this.destroyMap = function () {
     console.log(`#Map(${this.mapId}) Destroying map`)
     this.destroyed = true
     that = this
-    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'removeMapView', [this.mapId])
+    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'removeMapView', [this.mapArrayId])
   }
   this.showMap = function () {
     console.log(`#Map(${this.mapId}) Showing map`)
     that = this
-    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'showMapView', [this.mapId])
+    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'showMapView', [this.mapArrayId])
   }
   this.hideMap = function () {
     console.log(`#Map(${this.mapId}) Hiding map`)
     that = this
-    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'hideMapView', [this.mapId])
+    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'hideMapView', [this.mapArrayId])
   }
 
   this.showMapScale = function () {
     this.options.mapScale = true
     that = this
-    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'showMapScale', [this.mapId])
+    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'showMapScale', [this.mapArrayId])
   }
   this.hideMapScale = function () {
     this.options.mapScale = false
     that = this
-    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'hideMapScale', [this.mapId])
+    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'hideMapScale', [this.mapArrayId])
   }
 
   this.showMapCompass = function () {
@@ -312,34 +312,34 @@ var MKMap = function (mapId) {
     }
     this.options.mapCompass = true
     that = this
-    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'showMapCompass', [this.mapId])
+    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'showMapCompass', [this.mapArrayId])
   }
   this.hideMapCompass = function () {
     this.options.mapCompass = false
     that = this
-    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'hideMapCompass', [this.mapId])
+    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'hideMapCompass', [this.mapArrayId])
   }
 
   this.showMapTraffic = function () {
     this.options.mapTraffic = true
     that = this
-    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'showMapTraffic', [this.mapId])
+    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'showMapTraffic', [this.mapArrayId])
   }
   this.hideMapTraffic = function () {
     this.options.mapTraffic = false
     that = this
-    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'hideMapTraffic', [this.mapId])
+    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'hideMapTraffic', [this.mapArrayId])
   }
 
   this.showMapBuildings = function () {
     this.options.mapBuildings = true
     that = this
-    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'showMapBuildings', [this.mapId])
+    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'showMapBuildings', [this.mapArrayId])
   }
   this.hideMapBuildings = function () {
     this.options.mapBuildings = false
     that = this
-    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'hideMapBuildings', [this.mapId])
+    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'hideMapBuildings', [this.mapArrayId])
   }
 
   this.showMapUserLocation = function () {
@@ -350,26 +350,26 @@ var MKMap = function (mapId) {
     }
     this.options.mapUserLocation = true
     that = this
-    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'showMapUserLocation', [this.mapId])
+    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'showMapUserLocation', [this.mapArrayId])
   }
   this.hideMapUserLocation = function () {
     this.options.mapUserLocation = false
     that = this
-    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'hideMapUserLocation', [this.mapId])
+    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'hideMapUserLocation', [this.mapArrayId])
   }
   this.userLocationVisible = function (callback) {
-    cordovaRef.exec(callback, this.execFailure, 'MapKit', 'isShowingUserLocation', [this.mapId])
+    cordovaRef.exec(callback, this.execFailure, 'MapKit', 'isShowingUserLocation', [this.mapArrayId])
   }
 
   this.showMapPointsOfInterest = function () {
     this.options.mapPointsOfInterest = true
     that = this
-    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'showMapPointsOfInterest', [this.mapId])
+    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'showMapPointsOfInterest', [this.mapArrayId])
   }
   this.hideMapPointsOfInterest = function () {
     this.options.mapPointsOfInterest = false
     that = this
-    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'hideMapPointsOfInterest', [this.mapId])
+    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'hideMapPointsOfInterest', [this.mapArrayId])
   }
 
   this.addSimpleMapPin = function (data) {
@@ -418,7 +418,7 @@ var MKMap = function (mapId) {
       PinsToAdd.push(Pin.createPinArray())
     }
     that = this
-    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'addSimpleMapPins', [this.mapId, PinsToAdd])
+    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'addSimpleMapPins', [this.mapArrayId, PinsToAdd])
   }
   this.addComplexMapPin = function (data) {
     data = data || {}
@@ -444,7 +444,7 @@ var MKMap = function (mapId) {
   }
   this.removeAllMapPins = function () {
     that = this
-    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'removeAllMapPins', [this.mapId])
+    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'removeAllMapPins', [this.mapArrayId])
   }
 
 
@@ -454,16 +454,16 @@ var MKMap = function (mapId) {
 
 function handlePinInfoClickCallback(mapId, title)
 {
-  console.log(`Got info click on Map: ${mapId} on Pin: ${title}`)
-  Pin = MapDict[mapId].Pins[title]
+  console.log(`Got info click on Map: ${parseInt(mapId)} on Pin: ${title}`)
+  Pin = MapArray[parseInt(mapId)].Pins[title]
   Pin.infoClickCallback(Pin)
 }
 
 function handlePinDragCallback(mapId, title, lat, lon)
 {
   // console.dir(MapDict.undefined)
-  console.log(`Got drag end on Map: ${mapId} on Pin: ${title}`)
-  Pin = MapDict[mapId].Pins[title]
+  console.log(`Got drag end on Map: ${parseInt(mapId)} on Pin: ${title}`)
+  Pin = MapArray[parseInt(mapId)].Pins[title]
   Pin.lat = lat
   Pin.lon = lon
   Pin.pinDragCallback(Pin)

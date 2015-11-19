@@ -126,7 +126,7 @@ UIWebView* webView;
 - (void)createMapView:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSString* mapId = [[command arguments] objectAtIndex:0];
+    NSNumber* mapId = [[command arguments] objectAtIndex:0];
     CGFloat height = [[[command arguments] objectAtIndex:1]floatValue];
     CGFloat width = [[[command arguments] objectAtIndex:2]floatValue];
     CGFloat xPos = [[[command arguments] objectAtIndex:3]floatValue];
@@ -153,7 +153,7 @@ UIWebView* webView;
 - (void)showMapView:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSString* mapId = [[command arguments] objectAtIndex:0];
+    NSNumber* mapId = [[command arguments] objectAtIndex:0];
     MKMapView* mapView = [webView viewWithTag:mapId];
 
     mapView.hidden = NO;
@@ -171,7 +171,7 @@ UIWebView* webView;
 - (void)hideMapView:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSString* mapId = [[command arguments] objectAtIndex:0];
+    NSNumber* mapId = [[command arguments] objectAtIndex:0];
     MKMapView* mapView = [webView viewWithTag:mapId];
 
     mapView.hidden = YES;
@@ -189,7 +189,7 @@ UIWebView* webView;
 - (void)removeMapView:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSString* mapId = [[command arguments] objectAtIndex:0];
+    NSNumber* mapId = [[command arguments] objectAtIndex:0];
     MKMapView* mapView = [webView viewWithTag:mapId];
     [mapView removeFromSuperview];
 
@@ -205,7 +205,7 @@ UIWebView* webView;
 - (void)changeMapHeight:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSString* mapId = [[command arguments] objectAtIndex:0];
+    NSNumber* mapId = [[command arguments] objectAtIndex:0];
     CGFloat height = [[[command arguments] objectAtIndex:1]floatValue];
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
@@ -224,7 +224,7 @@ UIWebView* webView;
 - (void)changeMapWidth:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSString* mapId = [[command arguments] objectAtIndex:0];
+    NSNumber* mapId = [[command arguments] objectAtIndex:0];
     CGFloat width = [[[command arguments] objectAtIndex:1]floatValue];
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
@@ -243,7 +243,7 @@ UIWebView* webView;
 - (void)changeMapBounds:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSString* mapId = [[command arguments] objectAtIndex:0];
+    NSNumber* mapId = [[command arguments] objectAtIndex:0];
     CGFloat height = [[[command arguments] objectAtIndex:1]floatValue];
     CGFloat width = [[[command arguments] objectAtIndex:2]floatValue];
     MKMapView* mapView = [self.webView viewWithTag:mapId];
@@ -263,7 +263,7 @@ UIWebView* webView;
 - (void)changeMapXPos:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSString* mapId = [[command arguments] objectAtIndex:0];
+    NSNumber* mapId = [[command arguments] objectAtIndex:0];
     CGFloat XPos = [[[command arguments] objectAtIndex:1]floatValue];
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
@@ -282,7 +282,7 @@ UIWebView* webView;
 - (void)changeMapYPos:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSString* mapId = [[command arguments] objectAtIndex:0];
+    NSNumber* mapId = [[command arguments] objectAtIndex:0];
     CGFloat YPos = [[[command arguments] objectAtIndex:1]floatValue];
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
@@ -301,7 +301,7 @@ UIWebView* webView;
 - (void)changeMapPosition:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSString* mapId = [[command arguments] objectAtIndex:0];
+    NSNumber* mapId = [[command arguments] objectAtIndex:0];
     CGFloat XPos = [[[command arguments] objectAtIndex:1]floatValue];
     CGFloat YPos = [[[command arguments] objectAtIndex:2]floatValue];
     MKMapView* mapView = [self.webView viewWithTag:mapId];
@@ -323,7 +323,7 @@ UIWebView* webView;
 - (void)isShowingUserLocation:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSString* mapId = [[command arguments] objectAtIndex:0];
+    NSNumber* mapId = [[command arguments] objectAtIndex:0];
     MKMapView* mapView = [webView viewWithTag:mapId];
 
     NSString* stringRes;
@@ -348,7 +348,7 @@ UIWebView* webView;
 - (void)showMapScale:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSString* mapId = [[command arguments] objectAtIndex:0];
+    NSNumber* mapId = [[command arguments] objectAtIndex:0];
     // MKMapView* mapView = [webView viewWithTag:mapId];
 
     UIWindow *mainWindow = [UIApplication sharedApplication].windows[0];
@@ -371,7 +371,7 @@ UIWebView* webView;
 - (void)hideMapScale:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSString* mapId = [[command arguments] objectAtIndex:0];
+    NSNumber* mapId = [[command arguments] objectAtIndex:0];
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
     mapView.showsScale = NO;
@@ -388,7 +388,7 @@ UIWebView* webView;
 - (void)showMapUserLocation:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSString* mapId = [[command arguments] objectAtIndex:0];
+    NSNumber* mapId = [[command arguments] objectAtIndex:0];
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
     mapView.showsUserLocation = YES;
@@ -405,7 +405,7 @@ UIWebView* webView;
 - (void)hideMapUserLocation:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSString* mapId = [[command arguments] objectAtIndex:0];
+    NSNumber* mapId = [[command arguments] objectAtIndex:0];
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
     mapView.showsUserLocation = NO;
@@ -422,7 +422,7 @@ UIWebView* webView;
 - (void)showMapCompass:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSString* mapId = [[command arguments] objectAtIndex:0];
+    NSNumber* mapId = [[command arguments] objectAtIndex:0];
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
     mapView.showsCompass = YES;
@@ -439,7 +439,7 @@ UIWebView* webView;
 - (void)hideMapCompass:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSString* mapId = [[command arguments] objectAtIndex:0];
+    NSNumber* mapId = [[command arguments] objectAtIndex:0];
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
     mapView.showsCompass = NO;
@@ -456,7 +456,7 @@ UIWebView* webView;
 - (void)showMapPointsOfInterest:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSString* mapId = [[command arguments] objectAtIndex:0];
+    NSNumber* mapId = [[command arguments] objectAtIndex:0];
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
     mapView.showsPointsOfInterest = YES;
@@ -473,7 +473,7 @@ UIWebView* webView;
 - (void)hideMapPointsOfInterest:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSString* mapId = [[command arguments] objectAtIndex:0];
+    NSNumber* mapId = [[command arguments] objectAtIndex:0];
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
     mapView.showsPointsOfInterest = NO;
@@ -490,7 +490,7 @@ UIWebView* webView;
 - (void)showMapBuildings:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSString* mapId = [[command arguments] objectAtIndex:0];
+    NSNumber* mapId = [[command arguments] objectAtIndex:0];
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
     mapView.showsBuildings = YES;
@@ -507,7 +507,7 @@ UIWebView* webView;
 - (void)hideMapBuildings:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSString* mapId = [[command arguments] objectAtIndex:0];
+    NSNumber* mapId = [[command arguments] objectAtIndex:0];
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
     mapView.showsBuildings = NO;
@@ -524,7 +524,7 @@ UIWebView* webView;
 - (void)showMapTraffic:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSString* mapId = [[command arguments] objectAtIndex:0];
+    NSNumber* mapId = [[command arguments] objectAtIndex:0];
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
     mapView.showsTraffic = YES;
@@ -541,7 +541,7 @@ UIWebView* webView;
 - (void)hideMapTraffic:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSString* mapId = [[command arguments] objectAtIndex:0];
+    NSNumber* mapId = [[command arguments] objectAtIndex:0];
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
     mapView.showsTraffic = NO;
@@ -558,7 +558,7 @@ UIWebView* webView;
 - (void)addSimpleMapPin:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSString* mapId = [[command arguments] objectAtIndex:0];
+    NSNumber* mapId = [[command arguments] objectAtIndex:0];
     CGFloat lat = [[[command arguments] objectAtIndex:1]floatValue];
     CGFloat lon = [[[command arguments] objectAtIndex:2]floatValue];
     NSString* title = [[command arguments] objectAtIndex:3];
@@ -584,7 +584,7 @@ UIWebView* webView;
 - (void)addSimpleMapPins:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSString* mapId = [[command arguments] objectAtIndex:0];
+    NSNumber* mapId = [[command arguments] objectAtIndex:0];
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
     NSArray* pins = [[command arguments] objectAtIndex:1];
@@ -620,7 +620,7 @@ UIWebView* webView;
 - (void)removeMapPin:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSString* mapId = [[command arguments] objectAtIndex:0];
+    NSNumber* mapId = [[command arguments] objectAtIndex:0];
     NSString* pinTitle = [[command arguments] objectAtIndex:1];
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
@@ -647,7 +647,7 @@ UIWebView* webView;
 - (void)removeAllMapPins:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSString* mapId = [[command arguments] objectAtIndex:0];
+    NSNumber* mapId = [[command arguments] objectAtIndex:0];
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
     [mapView removeAnnotations:mapView.annotations];
@@ -664,7 +664,7 @@ UIWebView* webView;
 - (void)addComplexMapPin:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSString* mapId = [[command arguments] objectAtIndex:0];
+    NSNumber* mapId = [[command arguments] objectAtIndex:0];
     CGFloat lat = [[[command arguments] objectAtIndex:1]floatValue];
     CGFloat lon = [[[command arguments] objectAtIndex:2]floatValue];
     NSString* title = [[command arguments] objectAtIndex:3];
@@ -748,11 +748,11 @@ UIWebView* webView;
     {
       MKComplexMapPin *pin = (MKComplexMapPin *)annotation;
       NSLog(@"Clicked Complex Pin Infobutton");
-      NSLog(pin.mapId);
+      // NSLog(pin.mapId);
       NSLog(pin.title);
       NSMutableString* jsParam = [[NSMutableString alloc] init];
       [jsParam appendString:@"\""];
-      [jsParam appendString:pin.mapId];
+      [jsParam appendString:[NSString stringWithFormat:@"%f", pin.mapId]];
       [jsParam appendString:@"\""];
       [jsParam appendString:@","];
       [jsParam appendString:@"\""];
@@ -772,11 +772,11 @@ UIWebView* webView;
     {
         MKComplexMapPin *pin = (MKComplexMapPin *)annotation;
         NSLog(@"Moved Complex Pin Infobutton");
-        NSLog(pin.mapId);
+        // NSLog(pin.mapId);
         NSLog(pin.title);
         NSMutableString* jsParam = [[NSMutableString alloc] init];
         [jsParam appendString:@"\""];
-        [jsParam appendString:pin.mapId];
+        [jsParam appendString:[NSString stringWithFormat:@"%f", pin.mapId]];
         [jsParam appendString:@"\""];
         [jsParam appendString:@","];
         [jsParam appendString:@"\""];
