@@ -1,6 +1,6 @@
 var cordovaRef = window.PhoneGap || window.Cordova || window.cordova || window.phonegap;
 
-var MapArray = []
+var MapArray = ['nullProtector']
 var MapDict = {}
 
 var that;
