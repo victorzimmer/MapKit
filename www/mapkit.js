@@ -275,7 +275,7 @@ var MKMap = function (mapDictId) {
       console.log(`#Map(${this.mapId}) Creating map`)
       this.created = true
       that = this
-      cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'createMapView', [this.mapId, this.options.height, this.options.width, this.options.xPos, this.options.yPos])
+      cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'createMapView', [this.mapId, this.mapDictId, this.options.height, this.options.width, this.options.xPos, this.options.yPos])
     }
   }
   this.destroyMap = function () {
