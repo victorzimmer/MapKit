@@ -125,27 +125,25 @@ var MKComplexPin = function (map, lat, lon, title, description, pinColor, dragga
 }
 
 
-var MKMap = function (mapDictId) {
-  if (mapDictId != undefined)
+var MKMap = function (mapId) {
+  if (mapId != undefined)
   {
 
-    this.mapDictId = mapDictId
+    this.mapId = mapId
     // this.mapArrayId = MapArray.push(this)
   }
   else
   {
-    this.mapDictId = "map_" + MapArray.length
+    this.mapId = "map_" + MapArray.length
     // this.mapId = "map_" + this.mapArrayId
   }
 
-  this.mapId = MapArray.length
-
-  if (MapDict[mapDictId] != undefined)
+  if (MapDict[mapId] != undefined)
   {
-    MapDict[mapDictId].destroyMap()
+    MapDict[mapId].destroyMap()
   }
 
-  MapDict[mapDictId] = this;
+  MapDict[mapId] = this;
   this.mapArrayId = MapArray.push(this) - 1
 
   this.locationManager = locationManager;
@@ -275,7 +273,7 @@ var MKMap = function (mapDictId) {
       console.log(`#Map(${this.mapId}) Creating map`)
       this.created = true
       that = this
-      cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'createMapView', [this.mapId, this.mapDictId, this.options.height, this.options.width, this.options.xPos, this.options.yPos])
+      cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'createMapView', [this.mapId, this.options.height, this.options.width, this.options.xPos, this.options.yPos])
     }
   }
   this.destroyMap = function () {

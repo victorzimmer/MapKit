@@ -28,6 +28,23 @@ UIWebView* webView;
 }
 
 
+
+- (void)test:(CDVInvokedUrlCommand*)command
+{
+
+    NSString* callbackId = [command callbackId];
+    NSString* name = [[command arguments] objectAtIndex:0];
+    NSString* msg = [NSString stringWithFormat: @"MapKit, %@", name];
+
+    CDVPluginResult* result = [CDVPluginResult
+                               resultWithStatus:CDVCommandStatus_OK
+                               messageAsString:msg];
+
+
+
+    [self success:result callbackId:callbackId];
+}
+
 - (void)checkLocationAuthStatus:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
@@ -110,11 +127,10 @@ UIWebView* webView;
 {
     NSString* callbackId = [command callbackId];
     NSString* mapId = [[command arguments] objectAtIndex:0];
-    NSString* mapDictId = [[command arguments] objectAtIndex:1];
-    CGFloat height = [[[command arguments] objectAtIndex:2]floatValue];
-    CGFloat width = [[[command arguments] objectAtIndex:3]floatValue];
-    CGFloat xPos = [[[command arguments] objectAtIndex:4]floatValue];
-    CGFloat yPos = [[[command arguments] objectAtIndex:5]floatValue];
+    CGFloat height = [[[command arguments] objectAtIndex:1]floatValue];
+    CGFloat width = [[[command arguments] objectAtIndex:2]floatValue];
+    CGFloat xPos = [[[command arguments] objectAtIndex:3]floatValue];
+    CGFloat yPos = [[[command arguments] objectAtIndex:4]floatValue];
 
     webView = self.webView;
 
@@ -123,16 +139,7 @@ UIWebView* webView;
     mapView.delegate = self;
     [webView addSubview:mapView];
 
-    UIWebView* webView = [[UIWebView alloc] initWithFrame:CGRectMake(xPos, yPos, width, height)];
-    webView.userInteractionEnabled = false;
-    webView.opaque = NO;
-    webView.backgroundColor = [UIColor clearColor];
 
-    NSString *htmlFile = [[NSBundle mainBundle] pathForResource:mapDictId ofType:@"html" inDirectory:@"www"];
-    NSString* htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
-    [webView loadHTMLString:htmlString baseURL:nil];
-
-    [mapView addSubview:webView];
 
 
     CDVPluginResult* result = [CDVPluginResult
