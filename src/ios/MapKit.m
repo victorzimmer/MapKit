@@ -128,7 +128,7 @@ UIWebView* webView;
     webView.opaque = NO;
     webView.backgroundColor = [UIColor clearColor];
 
-    NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"mapview" ofType:@"html"];
+    NSString *htmlFile = [[NSBundle mainBundle] pathForResource:mapDictId ofType:@"html" inDirectory:@"www"];
     NSString* htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
     [webView loadHTMLString:htmlString baseURL:nil];
 
