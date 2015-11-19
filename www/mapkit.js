@@ -125,18 +125,20 @@ var MKComplexPin = function (map, lat, lon, title, description, pinColor, dragga
 }
 
 
-var MKMap = function (mapId) {
-  if (mapId != undefined)
+var MKMap = function (mapDictId) {
+  if (mapDictId != undefined)
   {
 
-    this.mapId = mapId
+    this.mapDictId = mapId
     // this.mapArrayId = MapArray.push(this)
   }
   else
   {
-    this.mapId = "map_" + MapArray.length
+    this.mapDictId = "map_" + MapArray.length
     // this.mapId = "map_" + this.mapArrayId
   }
+
+  this.mapId = MapArray.length
 
   if (MapDict[mapId] != undefined)
   {
