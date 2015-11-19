@@ -772,7 +772,7 @@ UIWebView* webView;
     {
         MKComplexMapPin *pin = (MKComplexMapPin *)annotation;
         NSLog(@"Moved Complex Pin Infobutton");
-        // NSLog(pin.mapId);
+        NSLog(@"%f", pin.mapId);
         NSLog(pin.title);
         NSMutableString* jsParam = [[NSMutableString alloc] init];
         [jsParam appendString:@"\""];
