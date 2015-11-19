@@ -126,7 +126,7 @@ UIWebView* webView;
 - (void)createMapView:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSNumber* mapId = [[command arguments] objectAtIndex:0];
+    CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
     CGFloat height = [[[command arguments] objectAtIndex:1]floatValue];
     CGFloat width = [[[command arguments] objectAtIndex:2]floatValue];
     CGFloat xPos = [[[command arguments] objectAtIndex:3]floatValue];
@@ -144,7 +144,7 @@ UIWebView* webView;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
-                               messageAsString:mapId];
+                               messageAsString:[NSString stringWithFormat:@"%f", mapId]];
 
     [self success:result callbackId:callbackId];
 }
@@ -153,7 +153,7 @@ UIWebView* webView;
 - (void)showMapView:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSNumber* mapId = [[command arguments] objectAtIndex:0];
+    CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
     MKMapView* mapView = [webView viewWithTag:mapId];
 
     mapView.hidden = NO;
@@ -161,7 +161,7 @@ UIWebView* webView;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
-                               messageAsString:mapId];
+                               messageAsString:[NSString stringWithFormat:@"%f", mapId]];
 
     [self success:result callbackId:callbackId];
 
@@ -171,7 +171,7 @@ UIWebView* webView;
 - (void)hideMapView:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSNumber* mapId = [[command arguments] objectAtIndex:0];
+    CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
     MKMapView* mapView = [webView viewWithTag:mapId];
 
     mapView.hidden = YES;
@@ -179,7 +179,7 @@ UIWebView* webView;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
-                               messageAsString:mapId];
+                               messageAsString:[NSString stringWithFormat:@"%f", mapId]];
 
     [self success:result callbackId:callbackId];
 
@@ -189,14 +189,14 @@ UIWebView* webView;
 - (void)removeMapView:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSNumber* mapId = [[command arguments] objectAtIndex:0];
+    CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
     MKMapView* mapView = [webView viewWithTag:mapId];
     [mapView removeFromSuperview];
 
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
-                               messageAsString:mapId];
+                               messageAsString:[NSString stringWithFormat:@"%f", mapId]];
 
     [self success:result callbackId:callbackId];
 
@@ -205,7 +205,7 @@ UIWebView* webView;
 - (void)changeMapHeight:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSNumber* mapId = [[command arguments] objectAtIndex:0];
+    CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
     CGFloat height = [[[command arguments] objectAtIndex:1]floatValue];
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
@@ -214,7 +214,7 @@ UIWebView* webView;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
-                               messageAsString:mapId];
+                               messageAsString:[NSString stringWithFormat:@"%f", mapId]];
 
     [self success:result callbackId:callbackId];
 
@@ -224,7 +224,7 @@ UIWebView* webView;
 - (void)changeMapWidth:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSNumber* mapId = [[command arguments] objectAtIndex:0];
+    CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
     CGFloat width = [[[command arguments] objectAtIndex:1]floatValue];
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
@@ -233,7 +233,7 @@ UIWebView* webView;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
-                               messageAsString:mapId];
+                               messageAsString:[NSString stringWithFormat:@"%f", mapId]];
 
     [self success:result callbackId:callbackId];
 
@@ -243,7 +243,7 @@ UIWebView* webView;
 - (void)changeMapBounds:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSNumber* mapId = [[command arguments] objectAtIndex:0];
+    CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
     CGFloat height = [[[command arguments] objectAtIndex:1]floatValue];
     CGFloat width = [[[command arguments] objectAtIndex:2]floatValue];
     MKMapView* mapView = [self.webView viewWithTag:mapId];
@@ -253,7 +253,7 @@ UIWebView* webView;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
-                               messageAsString:mapId];
+                               messageAsString:[NSString stringWithFormat:@"%f", mapId]];
 
     [self success:result callbackId:callbackId];
 
@@ -263,7 +263,7 @@ UIWebView* webView;
 - (void)changeMapXPos:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSNumber* mapId = [[command arguments] objectAtIndex:0];
+    CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
     CGFloat XPos = [[[command arguments] objectAtIndex:1]floatValue];
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
@@ -272,7 +272,7 @@ UIWebView* webView;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
-                               messageAsString:mapId];
+                               messageAsString:[NSString stringWithFormat:@"%f", mapId]];
 
     [self success:result callbackId:callbackId];
 
@@ -282,7 +282,7 @@ UIWebView* webView;
 - (void)changeMapYPos:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSNumber* mapId = [[command arguments] objectAtIndex:0];
+    CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
     CGFloat YPos = [[[command arguments] objectAtIndex:1]floatValue];
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
@@ -291,7 +291,7 @@ UIWebView* webView;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
-                               messageAsString:mapId];
+                               messageAsString:[NSString stringWithFormat:@"%f", mapId]];
 
     [self success:result callbackId:callbackId];
 
@@ -301,7 +301,7 @@ UIWebView* webView;
 - (void)changeMapPosition:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSNumber* mapId = [[command arguments] objectAtIndex:0];
+    CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
     CGFloat XPos = [[[command arguments] objectAtIndex:1]floatValue];
     CGFloat YPos = [[[command arguments] objectAtIndex:2]floatValue];
     MKMapView* mapView = [self.webView viewWithTag:mapId];
@@ -311,7 +311,7 @@ UIWebView* webView;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
-                               messageAsString:mapId];
+                               messageAsString:[NSString stringWithFormat:@"%f", mapId]];
 
     [self success:result callbackId:callbackId];
 
@@ -323,7 +323,7 @@ UIWebView* webView;
 - (void)isShowingUserLocation:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSNumber* mapId = [[command arguments] objectAtIndex:0];
+    CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
     MKMapView* mapView = [webView viewWithTag:mapId];
 
     NSString* stringRes;
@@ -348,7 +348,7 @@ UIWebView* webView;
 - (void)showMapScale:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSNumber* mapId = [[command arguments] objectAtIndex:0];
+    CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
     // MKMapView* mapView = [webView viewWithTag:mapId];
 
     UIWindow *mainWindow = [UIApplication sharedApplication].windows[0];
@@ -362,7 +362,7 @@ UIWebView* webView;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
-                               messageAsString:mapId];
+                               messageAsString:[NSString stringWithFormat:@"%f", mapId]];
 
     [self success:result callbackId:callbackId];
 
@@ -371,7 +371,7 @@ UIWebView* webView;
 - (void)hideMapScale:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSNumber* mapId = [[command arguments] objectAtIndex:0];
+    CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
     mapView.showsScale = NO;
@@ -379,7 +379,7 @@ UIWebView* webView;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
-                               messageAsString:mapId];
+                               messageAsString:[NSString stringWithFormat:@"%f", mapId]];
 
     [self success:result callbackId:callbackId];
 
@@ -388,7 +388,7 @@ UIWebView* webView;
 - (void)showMapUserLocation:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSNumber* mapId = [[command arguments] objectAtIndex:0];
+    CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
     mapView.showsUserLocation = YES;
@@ -396,7 +396,7 @@ UIWebView* webView;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
-                               messageAsString:mapId];
+                               messageAsString:[NSString stringWithFormat:@"%f", mapId]];
 
     [self success:result callbackId:callbackId];
 
@@ -405,7 +405,7 @@ UIWebView* webView;
 - (void)hideMapUserLocation:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSNumber* mapId = [[command arguments] objectAtIndex:0];
+    CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
     mapView.showsUserLocation = NO;
@@ -413,7 +413,7 @@ UIWebView* webView;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
-                               messageAsString:mapId];
+                               messageAsString:[NSString stringWithFormat:@"%f", mapId]];
 
     [self success:result callbackId:callbackId];
 
@@ -422,7 +422,7 @@ UIWebView* webView;
 - (void)showMapCompass:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSNumber* mapId = [[command arguments] objectAtIndex:0];
+    CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
     mapView.showsCompass = YES;
@@ -430,7 +430,7 @@ UIWebView* webView;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
-                               messageAsString:mapId];
+                               messageAsString:[NSString stringWithFormat:@"%f", mapId]];
 
     [self success:result callbackId:callbackId];
 
@@ -439,7 +439,7 @@ UIWebView* webView;
 - (void)hideMapCompass:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSNumber* mapId = [[command arguments] objectAtIndex:0];
+    CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
     mapView.showsCompass = NO;
@@ -447,7 +447,7 @@ UIWebView* webView;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
-                               messageAsString:mapId];
+                               messageAsString:[NSString stringWithFormat:@"%f", mapId]];
 
     [self success:result callbackId:callbackId];
 
@@ -456,7 +456,7 @@ UIWebView* webView;
 - (void)showMapPointsOfInterest:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSNumber* mapId = [[command arguments] objectAtIndex:0];
+    CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
     mapView.showsPointsOfInterest = YES;
@@ -464,7 +464,7 @@ UIWebView* webView;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
-                               messageAsString:mapId];
+                               messageAsString:[NSString stringWithFormat:@"%f", mapId]];
 
     [self success:result callbackId:callbackId];
 
@@ -473,7 +473,7 @@ UIWebView* webView;
 - (void)hideMapPointsOfInterest:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSNumber* mapId = [[command arguments] objectAtIndex:0];
+    CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
     mapView.showsPointsOfInterest = NO;
@@ -481,7 +481,7 @@ UIWebView* webView;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
-                               messageAsString:mapId];
+                               messageAsString:[NSString stringWithFormat:@"%f", mapId]];
 
     [self success:result callbackId:callbackId];
 
@@ -490,7 +490,7 @@ UIWebView* webView;
 - (void)showMapBuildings:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSNumber* mapId = [[command arguments] objectAtIndex:0];
+    CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
     mapView.showsBuildings = YES;
@@ -498,7 +498,7 @@ UIWebView* webView;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
-                               messageAsString:mapId];
+                               messageAsString:[NSString stringWithFormat:@"%f", mapId]];
 
     [self success:result callbackId:callbackId];
 
@@ -507,7 +507,7 @@ UIWebView* webView;
 - (void)hideMapBuildings:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSNumber* mapId = [[command arguments] objectAtIndex:0];
+    CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
     mapView.showsBuildings = NO;
@@ -515,7 +515,7 @@ UIWebView* webView;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
-                               messageAsString:mapId];
+                               messageAsString:[NSString stringWithFormat:@"%f", mapId]];
 
     [self success:result callbackId:callbackId];
 
@@ -524,7 +524,7 @@ UIWebView* webView;
 - (void)showMapTraffic:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSNumber* mapId = [[command arguments] objectAtIndex:0];
+    CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
     mapView.showsTraffic = YES;
@@ -532,7 +532,7 @@ UIWebView* webView;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
-                               messageAsString:mapId];
+                               messageAsString:[NSString stringWithFormat:@"%f", mapId]];
 
     [self success:result callbackId:callbackId];
 
@@ -541,7 +541,7 @@ UIWebView* webView;
 - (void)hideMapTraffic:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSNumber* mapId = [[command arguments] objectAtIndex:0];
+    CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
     mapView.showsTraffic = NO;
@@ -549,7 +549,7 @@ UIWebView* webView;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
-                               messageAsString:mapId];
+                               messageAsString:[NSString stringWithFormat:@"%f", mapId]];
 
     [self success:result callbackId:callbackId];
 
@@ -558,7 +558,7 @@ UIWebView* webView;
 - (void)addSimpleMapPin:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSNumber* mapId = [[command arguments] objectAtIndex:0];
+    CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
     CGFloat lat = [[[command arguments] objectAtIndex:1]floatValue];
     CGFloat lon = [[[command arguments] objectAtIndex:2]floatValue];
     NSString* title = [[command arguments] objectAtIndex:3];
@@ -575,7 +575,7 @@ UIWebView* webView;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
-                               messageAsString:mapId];
+                               messageAsString:[NSString stringWithFormat:@"%f", mapId]];
 
     [self success:result callbackId:callbackId];
 
@@ -584,7 +584,7 @@ UIWebView* webView;
 - (void)addSimpleMapPins:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSNumber* mapId = [[command arguments] objectAtIndex:0];
+    CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
     NSArray* pins = [[command arguments] objectAtIndex:1];
@@ -611,7 +611,7 @@ UIWebView* webView;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
-                               messageAsString:mapId];
+                               messageAsString:[NSString stringWithFormat:@"%f", mapId]];
 
     [self success:result callbackId:callbackId];
 
@@ -620,7 +620,7 @@ UIWebView* webView;
 - (void)removeMapPin:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSNumber* mapId = [[command arguments] objectAtIndex:0];
+    CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
     NSString* pinTitle = [[command arguments] objectAtIndex:1];
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
@@ -638,7 +638,7 @@ UIWebView* webView;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
-                               messageAsString:mapId];
+                               messageAsString:[NSString stringWithFormat:@"%f", mapId]];
 
     [self success:result callbackId:callbackId];
 
@@ -647,7 +647,7 @@ UIWebView* webView;
 - (void)removeAllMapPins:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSNumber* mapId = [[command arguments] objectAtIndex:0];
+    CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
     [mapView removeAnnotations:mapView.annotations];
@@ -655,7 +655,7 @@ UIWebView* webView;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
-                               messageAsString:mapId];
+                               messageAsString:[NSString stringWithFormat:@"%f", mapId]];
 
     [self success:result callbackId:callbackId];
 
@@ -664,7 +664,7 @@ UIWebView* webView;
 - (void)addComplexMapPin:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
-    NSNumber* mapId = [[command arguments] objectAtIndex:0];
+    CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
     CGFloat lat = [[[command arguments] objectAtIndex:1]floatValue];
     CGFloat lon = [[[command arguments] objectAtIndex:2]floatValue];
     NSString* title = [[command arguments] objectAtIndex:3];
@@ -736,7 +736,7 @@ UIWebView* webView;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
-                               messageAsString:mapId];
+                               messageAsString:[NSString stringWithFormat:@"%f", mapId]];
 
     [self success:result callbackId:callbackId];
 
