@@ -1,3 +1,7 @@
+Number.isFinite = Number.isFinite || function(value) {
+    return typeof value === "number" && isFinite(value);
+}
+
 var cordovaRef = window.PhoneGap || window.Cordova || window.cordova || window.phonegap;
 
 var MapArray = ['nullProtector']
