@@ -437,9 +437,9 @@ var MKMap = function (mapId) {
     pinImage = data.pinImage || ""
     pinImageOffsetX = data.pinImageOffsetX || 0
     pinImageOffsetY = data.pinImageOffsetY || 0
-    draggable = data.draggable || false;
-    canShowCallout = data.canShowCallout || true;
-    showInfoButton = data.showInfoButton || false;
+    draggable = data.draggable === true;
+    canShowCallout = data.canShowCallout !== false;
+    showInfoButton = data.showInfoButton === true;
     pinDragCallback = data.pinDragCallback || function (pin) { console.log("Pin was moved: "+pin.title) }
     infoClickCallback = data.infoClickCallback || function (pin) { console.log("PinInfo was clicked: "+pin.title) }
 
