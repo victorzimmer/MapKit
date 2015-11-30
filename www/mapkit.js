@@ -94,13 +94,14 @@ var MKSimplePin = function (map, lat, lon, title, description) {
   }
 }
 
-var MKComplexPin = function (map, lat, lon, title, description, pinColor, draggable, canShowCallout, showInfoButton, pinDragCallback, infoClickCallback) {
+var MKComplexPin = function (map, lat, lon, title, description, pinColor, pinImage, draggable, canShowCallout, showInfoButton, pinDragCallback, infoClickCallback) {
   this.map = map
   this.lat = lat
   this.lon = lon
   this.title = title
   this.description = description
   this.pinColor = pinColor
+  this.pinImage = pinImage
   this.draggable = draggable
   this.canShowCallout = canShowCallout
   this.showInfoButton = showInfoButton
@@ -117,7 +118,7 @@ var MKComplexPin = function (map, lat, lon, title, description, pinColor, dragga
   this.createPin = function () {
     that = this
     console.log("Creating pin: ${[this.map.mapArrayId, this.lat, this.lon, this.title, this.description].join(" - ")}")
-    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'addComplexMapPin', [this.map.mapArrayId, this.lat, this.lon, this.title, this.description, ((this.pinColor == "purple")?3:((this.pinColor == "green")?2:1)), ((this.draggable)?1:0), ((this.canShowCallout)?1:0), ((this.showInfoButton)?1:0)])
+    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'addComplexMapPin', [this.map.mapArrayId, this.lat, this.lon, this.title, this.description, ((this.pinColor == "purple")?3:((this.pinColor == "green")?2:1)), this.pinImage, ((this.draggable)?1:0), ((this.canShowCallout)?1:0), ((this.showInfoButton)?1:0)])
   }
   this.createPinArray = function () {
     return [this.lat, this.lon, this.title, this.description]
@@ -431,6 +432,7 @@ var MKMap = function (mapId) {
     title = data.title || ("Pin " + this.PinsArray.length)
     description = data.description || ""
     pinColor = data.pinColor || "red" // red/green/purple
+    pinImage = data.pinImage || ""
     draggable = data.draggable || false;
     canShowCallout = data.canShowCallout || true;
     showInfoButton = data.showInfoButton || false;
@@ -441,7 +443,7 @@ var MKMap = function (mapId) {
     {
       this.Pins[title].removePin()
     }
-    Pin = new MKComplexPin(this, lat, lon, title, description, pinColor, draggable, canShowCallout, showInfoButton, pinDragCallback, infoClickCallback)
+    Pin = new MKComplexPin(this, lat, lon, title, description, pinColor, pinImage, draggable, canShowCallout, showInfoButton, pinDragCallback, infoClickCallback)
     this.Pins[title] = Pin
     this.PinsArray.push(Pin)
     Pin.createPin()
