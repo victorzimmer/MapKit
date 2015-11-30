@@ -669,9 +669,11 @@ UIWebView* webView;
     NSString* description = [[command arguments] objectAtIndex:4];
     CGFloat pinColor = [[[command arguments] objectAtIndex:5] floatValue];
     NSString* pinImage = [[command arguments] objectAtIndex:6];
-    CGFloat draggable = [[[command arguments] objectAtIndex:7] floatValue];
-    CGFloat canShowCallout = [[[command arguments] objectAtIndex:8] floatValue];
-    CGFloat showInfoButton = [[[command arguments] objectAtIndex:9] floatValue];
+    CGFloat pinImageOffsetX = [[[command arguments] objectAtIndex:7] floatValue];
+    CGFloat pinImageOffsetY = [[[command arguments] objectAtIndex:8] floatValue];
+    CGFloat draggable = [[[command arguments] objectAtIndex:9] floatValue];
+    CGFloat canShowCallout = [[[command arguments] objectAtIndex:10] floatValue];
+    CGFloat showInfoButton = [[[command arguments] objectAtIndex:11] floatValue];
 //    CGFloat inaccuracyRadius = [[[command arguments] objectAtIndex:6]floatValue];
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
@@ -705,6 +707,8 @@ UIWebView* webView;
     if ([pinImage length] != 0) {
         pinAnnotation.customImage = YES;
         pinAnnotation.pinImage = pinImage;
+        pinAnnotation.pinImageOffsetX = pinImageOffsetX;
+        pinAnnotation.pinImageOffsetY = pinImageOffsetY;
     }
 
     if (draggable > 0)
@@ -803,30 +807,48 @@ UIWebView* webView;
 {
     if ([annotation isKindOfClass:[MKUserLocation class]])
         return nil;
-
-    static NSString *reuseId = @"pin";
-    MKPinAnnotationView *pav = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:reuseId];
-    if (pav == nil)
-    {
-        pav = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:reuseId];
-    }
-    else
-    {
-        pav.annotation = annotation;
-    }
     
+    static NSString *reuseSimplePinId = @"SimplePin";
+    static NSString *reuseComplexPinId = @"ComplexPin";
+    static NSString *reuseCustomImageComplexPinId = @"CustomImageComplexPin";
+    MKAnnotationView *pav = nil;
     if ([annotation isKindOfClass:[MKComplexMapPin class]])
     {
         MKComplexMapPin *pin = (MKComplexMapPin *)annotation;
-        pav.pinColor = pin.pinColor;
-        pav.draggable = pin.draggable;
-        pav.canShowCallout = pin.canShowCallout;
-        
-        if (pin.customImage) {
+        if (pin.customImage)
+        {
+            pav = [mapView dequeueReusableAnnotationViewWithIdentifier:reuseCustomImageComplexPinId];
+            if (pav == nil)
+            {
+                pav = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:reuseCustomImageComplexPinId];
+            }
+            else
+            {
+                pav.annotation = annotation;
+            }
+            
             NSURL *url = [NSURL URLWithString:pin.pinImage];
             NSData *imageData = [NSData dataWithContentsOfURL:url];
             pav.image = [UIImage imageWithData:imageData];
+            pav.centerOffset = CGPointMake(pin.pinImageOffsetX, pin.pinImageOffsetY);
         }
+        else
+        {
+            pav = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:reuseComplexPinId];
+            if (pav == nil)
+            {
+                pav = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:reuseComplexPinId];
+            }
+            else
+            {
+                pav.annotation = annotation;
+            }
+            
+            ((MKPinAnnotationView *)pav).pinColor = pin.pinColor;
+        }
+        
+        pav.draggable = pin.draggable;
+        pav.canShowCallout = pin.canShowCallout;
         
         if (pin.showInfoButton)
         {
@@ -836,6 +858,15 @@ UIWebView* webView;
     }
     else if ([annotation isKindOfClass:[MKPointAnnotation class]])
     {
+        pav = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:reuseSimplePinId];
+        if (pav == nil)
+        {
+            pav = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:reuseSimplePinId];
+        }
+        else
+        {
+            pav.annotation = annotation;
+        }
         pav.canShowCallout = YES;
     }
 
