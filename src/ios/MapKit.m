@@ -668,9 +668,12 @@ UIWebView* webView;
     NSString* title = [[command arguments] objectAtIndex:3];
     NSString* description = [[command arguments] objectAtIndex:4];
     CGFloat pinColor = [[[command arguments] objectAtIndex:5] floatValue];
-    CGFloat draggable = [[[command arguments] objectAtIndex:6] floatValue];
-    CGFloat canShowCallout = [[[command arguments] objectAtIndex:7] floatValue];
-    CGFloat showInfoButton = [[[command arguments] objectAtIndex:8] floatValue];
+    NSString* pinImage = [[command arguments] objectAtIndex:6];
+    CGFloat pinImageOffsetX = [[[command arguments] objectAtIndex:7] floatValue];
+    CGFloat pinImageOffsetY = [[[command arguments] objectAtIndex:8] floatValue];
+    CGFloat draggable = [[[command arguments] objectAtIndex:9] floatValue];
+    CGFloat canShowCallout = [[[command arguments] objectAtIndex:10] floatValue];
+    CGFloat showInfoButton = [[[command arguments] objectAtIndex:11] floatValue];
 //    CGFloat inaccuracyRadius = [[[command arguments] objectAtIndex:6]floatValue];
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
@@ -699,6 +702,13 @@ UIWebView* webView;
     else
     {
         pinAnnotation.pinColor = MKPinAnnotationColorRed;
+    }
+    
+    if ([pinImage length] != 0) {
+        pinAnnotation.customImage = YES;
+        pinAnnotation.pinImage = pinImage;
+        pinAnnotation.pinImageOffsetX = pinImageOffsetX;
+        pinAnnotation.pinImageOffsetY = pinImageOffsetY;
     }
 
     if (draggable > 0)
@@ -797,42 +807,67 @@ UIWebView* webView;
 {
     if ([annotation isKindOfClass:[MKUserLocation class]])
         return nil;
-
-    static NSString *reuseId = @"pin";
-    MKPinAnnotationView *pav = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:reuseId];
-    if (pav == nil)
+    
+    static NSString *reuseSimplePinId = @"SimplePin";
+    static NSString *reuseComplexPinId = @"ComplexPin";
+    static NSString *reuseCustomImageComplexPinId = @"CustomImageComplexPin";
+    MKAnnotationView *pav = nil;
+    if ([annotation isKindOfClass:[MKComplexMapPin class]])
     {
-        if ([annotation isKindOfClass:[MKComplexMapPin class]])
+        MKComplexMapPin *pin = (MKComplexMapPin *)annotation;
+        if (pin.customImage)
         {
-            pav = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:reuseId];
-
-            MKComplexMapPin *pin = (MKComplexMapPin *)annotation;
-            pav.pinColor = pin.pinColor;
-            pav.draggable = pin.draggable;
-            pav.canShowCallout = pin.canShowCallout;
-
-            if (pin.showInfoButton)
+            pav = [mapView dequeueReusableAnnotationViewWithIdentifier:reuseCustomImageComplexPinId];
+            if (pav == nil)
             {
-              UIButton* info = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-              pav.rightCalloutAccessoryView = info;
+                pav = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:reuseCustomImageComplexPinId];
             }
+            else
+            {
+                pav.annotation = annotation;
+            }
+            
+            NSURL *url = [NSURL URLWithString:pin.pinImage];
+            NSData *imageData = [NSData dataWithContentsOfURL:url];
+            pav.image = [UIImage imageWithData:imageData];
+            pav.centerOffset = CGPointMake(pin.pinImageOffsetX, pin.pinImageOffsetY);
         }
-        else if ([annotation isKindOfClass:[MKPointAnnotation class]])
+        else
         {
-            pav = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:reuseId];
-
-            pav.canShowCallout = YES;
+            pav = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:reuseComplexPinId];
+            if (pav == nil)
+            {
+                pav = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:reuseComplexPinId];
+            }
+            else
+            {
+                pav.annotation = annotation;
+            }
+            
+            ((MKPinAnnotationView *)pav).pinColor = pin.pinColor;
         }
-
-
-//        pav.draggable = YES;
-//        pav.canShowCallout = YES;
-//        MKComplexMapPin* pinAnnotation = [mapView ];
-//        pav.pinColor = pinAnnotation.pinColor;
+        
+        pav.draggable = pin.draggable;
+        pav.canShowCallout = pin.canShowCallout;
+        
+        if (pin.showInfoButton)
+        {
+            UIButton* info = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+            pav.rightCalloutAccessoryView = info;
+        }
     }
-    else
+    else if ([annotation isKindOfClass:[MKPointAnnotation class]])
     {
-        pav.annotation = annotation;
+        pav = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:reuseSimplePinId];
+        if (pav == nil)
+        {
+            pav = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:reuseSimplePinId];
+        }
+        else
+        {
+            pav.annotation = annotation;
+        }
+        pav.canShowCallout = YES;
     }
 
     return pav;
