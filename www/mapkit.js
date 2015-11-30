@@ -284,10 +284,13 @@ var MKMap = function (mapId) {
     }
   }
   this.destroyMap = function () {
-    console.log("#MKMap(" + this.mapId + ") Destroying map")
-    this.destroyed = true
-    that = this
-    cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'removeMapView', [this.mapArrayId])
+    if (!this.destroyed)
+    {
+      console.log("#MKMap(" + this.mapId + ") Destroying map")
+      this.destroyed = true
+      that = this
+      cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'removeMapView', [this.mapArrayId])
+    }
   }
   this.showMap = function () {
     console.log("#MKMap(" + this.mapId + ") Showing map")
