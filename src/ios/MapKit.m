@@ -571,6 +571,126 @@ UIWebView* webView;
 
 }
 
+- (void)setMapCenter:(CDVInvokedUrlCommand*)command
+{
+    NSString* callbackId = [command callbackId];
+    CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
+    CGFloat centerLat = [[[command arguments] objectAtIndex:1] floatValue];
+    CGFloat centerLon = [[[command arguments] objectAtIndex:2] floatValue];
+    BOOL animated = [[[command arguments] objectAtIndex:3] boolValue];
+    MKMapView* mapView = [self.webView viewWithTag:mapId];
+
+    CLLocationCoordinate2D newCenter = CLLocationCoordinate2DMake(centerLat, centerLon);
+    [mapView setCenterCoordinate:newCenter animated:animated];
+
+
+    CDVPluginResult* result = [CDVPluginResult
+                               resultWithStatus:CDVCommandStatus_OK
+                               messageAsString:[NSString stringWithFormat:@"%f", mapId]];
+
+    [self success:result callbackId:callbackId];
+
+}
+
+- (void)enableMapRotate:(CDVInvokedUrlCommand*)command
+{
+    NSString* callbackId = [command callbackId];
+    CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
+    MKMapView* mapView = [self.webView viewWithTag:mapId];
+
+    [mapView setRotateEnabled:YES];
+
+
+    CDVPluginResult* result = [CDVPluginResult
+                               resultWithStatus:CDVCommandStatus_OK
+                               messageAsString:[NSString stringWithFormat:@"%f", mapId]];
+
+    [self success:result callbackId:callbackId];
+
+}
+- (void)disableMapRotate:(CDVInvokedUrlCommand*)command
+{
+    NSString* callbackId = [command callbackId];
+    CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
+    MKMapView* mapView = [self.webView viewWithTag:mapId];
+
+    [mapView setRotateEnabled:NO];
+
+
+    CDVPluginResult* result = [CDVPluginResult
+                               resultWithStatus:CDVCommandStatus_OK
+                               messageAsString:[NSString stringWithFormat:@"%f", mapId]];
+
+    [self success:result callbackId:callbackId];
+
+}
+
+- (void)enableMapScroll:(CDVInvokedUrlCommand*)command
+{
+    NSString* callbackId = [command callbackId];
+    CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
+    MKMapView* mapView = [self.webView viewWithTag:mapId];
+
+    [mapView setScrollEnabled:YES];
+
+
+    CDVPluginResult* result = [CDVPluginResult
+                               resultWithStatus:CDVCommandStatus_OK
+                               messageAsString:[NSString stringWithFormat:@"%f", mapId]];
+
+    [self success:result callbackId:callbackId];
+
+}
+- (void)disableMapScroll:(CDVInvokedUrlCommand*)command
+{
+    NSString* callbackId = [command callbackId];
+    CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
+    MKMapView* mapView = [self.webView viewWithTag:mapId];
+
+    [mapView setScrollEnabled:NO];
+
+
+    CDVPluginResult* result = [CDVPluginResult
+                               resultWithStatus:CDVCommandStatus_OK
+                               messageAsString:[NSString stringWithFormat:@"%f", mapId]];
+
+    [self success:result callbackId:callbackId];
+
+}
+
+- (void)enableMapUserInteraction:(CDVInvokedUrlCommand*)command
+{
+    NSString* callbackId = [command callbackId];
+    CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
+    MKMapView* mapView = [self.webView viewWithTag:mapId];
+
+    [mapView setUserInteractionEnabled:YES];
+
+
+    CDVPluginResult* result = [CDVPluginResult
+                               resultWithStatus:CDVCommandStatus_OK
+                               messageAsString:[NSString stringWithFormat:@"%f", mapId]];
+
+    [self success:result callbackId:callbackId];
+
+}
+- (void)disableMapUserInteraction:(CDVInvokedUrlCommand*)command
+{
+    NSString* callbackId = [command callbackId];
+    CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
+    MKMapView* mapView = [self.webView viewWithTag:mapId];
+
+    [mapView setUserInteractionEnabled:NO];
+
+
+    CDVPluginResult* result = [CDVPluginResult
+                               resultWithStatus:CDVCommandStatus_OK
+                               messageAsString:[NSString stringWithFormat:@"%f", mapId]];
+
+    [self success:result callbackId:callbackId];
+
+}
+
 - (void)setMapRegion:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
@@ -596,7 +716,6 @@ UIWebView* webView;
     [self success:result callbackId:callbackId];
 
 }
-
 
 - (void)addSimpleMapPin:(CDVInvokedUrlCommand*)command
 {
