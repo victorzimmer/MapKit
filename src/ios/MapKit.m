@@ -553,6 +553,51 @@ UIWebView* webView;
 
 }
 
+- (void)setMapOpacity:(CDVInvokedUrlCommand*)command
+{
+    NSString* callbackId = [command callbackId];
+    CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
+    CGFloat newAlpha = [[[command arguments] objectAtIndex:1] floatValue];
+    MKMapView* mapView = [self.webView viewWithTag:mapId];
+
+    [mapView setAlpha: newAlpha];
+
+
+    CDVPluginResult* result = [CDVPluginResult
+                               resultWithStatus:CDVCommandStatus_OK
+                               messageAsString:[NSString stringWithFormat:@"%f", mapId]];
+
+    [self success:result callbackId:callbackId];
+
+}
+
+- (void)setMapRegion:(CDVInvokedUrlCommand*)command
+{
+    NSString* callbackId = [command callbackId];
+    CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
+    CGFloat centerLat = [[[command arguments] objectAtIndex:1] floatValue];
+    CGFloat centerLon = [[[command arguments] objectAtIndex:2] floatValue];
+    CGFloat spanLat = [[[command arguments] objectAtIndex:3] floatValue];
+    CGFloat spanLon = [[[command arguments] objectAtIndex:4] floatValue];
+    BOOL animated = [[[command arguments] objectAtIndex:5] boolValue];
+    MKMapView* mapView = [self.webView viewWithTag:mapId];
+
+    CLLocationCoordinate2D newCenter = CLLocationCoordinate2DMake(centerLat, centerLon);
+    MKCoordinateSpan newSpan = MKCoordinateSpanMake(spanLat, spanLon);
+
+    MKCoordinateRegion newRegion = MKCoordinateRegionMake(newCenter, newSpan);
+    [mapView setRegion:newRegion animated:animated];
+
+
+    CDVPluginResult* result = [CDVPluginResult
+                               resultWithStatus:CDVCommandStatus_OK
+                               messageAsString:[NSString stringWithFormat:@"%f", mapId]];
+
+    [self success:result callbackId:callbackId];
+
+}
+
+
 - (void)addSimpleMapPin:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
