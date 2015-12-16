@@ -146,12 +146,12 @@ var MKMap = function (mapId) {
     // this.mapId = "map_" + this.mapArrayId
   }
 
-  if (MapDict[mapId] != undefined)
+  if (MapDict[this.mapId] != undefined)
   {
-    MapDict[mapId].destroyMap()
+    MapDict[this.mapId].destroyMap()
   }
 
-  MapDict[mapId] = this;
+  MapDict[this.mapId] = this;
   this.mapArrayId = MapArray.push(this) - 1
 
   this.locationManager = locationManager;
