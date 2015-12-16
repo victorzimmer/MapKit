@@ -94,7 +94,7 @@ var MKSimplePin = function (map, lat, lon, title, description) {
   }
 }
 
-var MKComplexPin = function (map, lat, lon, title, description, pinColor, pinImage, pinImageOffsetX, pinImageOffsetY, draggable, canShowCallout, showInfoButton, pinDragCallback, infoClickCallback) {
+var MKComplexPin = function (map, lat, lon, title, description, pinColor, pinImage, pinImageOffsetX, pinImageOffsetY, draggable, canShowCallout, showInfoButton, pinDragCallback, infoClickCallback, pinClickCallback) {
   this.map = map
   this.lat = lat
   this.lon = lon
@@ -109,6 +109,7 @@ var MKComplexPin = function (map, lat, lon, title, description, pinColor, pinIma
   this.showInfoButton = showInfoButton
   this.pinDragCallback = pinDragCallback
   this.infoClickCallback = infoClickCallback
+  this.pinClickCallback = pinClickCallback
   this.execSuccess = function (data) {
     console.log("#MKComplexPin(${that.title}) Executed native command successfully")
     console.log(data)
@@ -145,12 +146,12 @@ var MKMap = function (mapId) {
     // this.mapId = "map_" + this.mapArrayId
   }
 
-  if (MapDict[mapId] != undefined)
+  if (MapDict[this.mapId] != undefined)
   {
-    MapDict[mapId].destroyMap()
+    MapDict[this.mapId].destroyMap()
   }
 
-  MapDict[mapId] = this;
+  MapDict[this.mapId] = this;
   this.mapArrayId = MapArray.push(this) - 1
 
   this.locationManager = locationManager;
@@ -445,12 +446,13 @@ var MKMap = function (mapId) {
     showInfoButton = data.showInfoButton === true;
     pinDragCallback = data.pinDragCallback || function (pin) { console.log("Pin was moved: "+pin.title) }
     infoClickCallback = data.infoClickCallback || function (pin) { console.log("PinInfo was clicked: "+pin.title) }
+    pinClickCallback = data.pinClickCallback || function (pin) { console.log("Pin was clicked: "+pin.title) }
 
     if (this.Pins[title] != undefined)
     {
       this.Pins[title].removePin()
     }
-    Pin = new MKComplexPin(this, lat, lon, title, description, pinColor, pinImage, pinImageOffsetX, pinImageOffsetY, draggable, canShowCallout, showInfoButton, pinDragCallback, infoClickCallback)
+    Pin = new MKComplexPin(this, lat, lon, title, description, pinColor, pinImage, pinImageOffsetX, pinImageOffsetY, draggable, canShowCallout, showInfoButton, pinDragCallback, infoClickCallback, pinClickCallback)
     this.Pins[title] = Pin
     this.PinsArray.push(Pin)
     Pin.createPin()
@@ -482,6 +484,13 @@ function handlePinDragCallback(mapId, title, lat, lon)
   Pin.pinDragCallback(Pin)
 }
 
+function handlePinClickCallback(mapId, title)
+{
+  console.log("Got pin click on Map: ${parseInt(mapId)} on Pin: ${title}")
+  Pin = MapArray[parseInt(mapId)].Pins[title]
+  Pin.pinClickCallback(Pin)
+}
+
 window.MKInterface = {}
 window.MKInterface.MKMap = MKMap
 window.MKInterface.locationManager = locationManager
@@ -490,3 +499,4 @@ window.MKInterface.getMapByMapId = function (mid) { return MapDict[mid] }
 window.MKInterface.__objc__ = {}
 window.MKInterface.__objc__.pinInfoClickCallback = handlePinInfoClickCallback
 window.MKInterface.__objc__.pinDragCallback = handlePinDragCallback
+window.MKInterface.__objc__.pinClickCallback = handlePinClickCallback

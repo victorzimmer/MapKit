@@ -802,6 +802,29 @@ UIWebView* webView;
 
 }
 
+- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(nonnull MKAnnotationView *)view
+{
+    id <MKAnnotation> annotation = [view annotation];
+    if ([annotation isKindOfClass:[MKComplexMapPin class]])
+    {
+        MKComplexMapPin *pin = (MKComplexMapPin *)annotation;
+        NSLog(@"Clicked Complex Pin");
+        NSLog(@"%f", pin.mapId);
+        NSLog(pin.title);
+        NSMutableString* jsParam = [[NSMutableString alloc] init];
+        [jsParam appendString:@"\""];
+        [jsParam appendString:[NSString stringWithFormat:@"%f", pin.mapId]];
+        [jsParam appendString:@"\""];
+        [jsParam appendString:@","];
+        [jsParam appendString:@"\""];
+        [jsParam appendString:pin.title];
+        [jsParam appendString:@"\""];
+        NSLog(jsParam);
+        
+        NSString* jsString = [NSString stringWithFormat:@"MKInterface.__objc__.pinClickCallback(%@);", jsParam];
+        [self.webView stringByEvaluatingJavaScriptFromString:jsString];
+    }
+}
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
 {
