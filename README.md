@@ -1,5 +1,11 @@
 # MapKit
-## Current Version: 0.0.3
+## Current Version: 0.0.4
+
+Notice: If you're using Cordova 6.0.0 you'll have to downgrade cordova-ios. 
+```
+cordova platform remove ios
+cordova platform add ios@3.9.2
+```
 
 New version of MapKit (there seem to be lots of older versions around). Currently iOS-only, but will support iOS, Android and Windows Phone.
 
