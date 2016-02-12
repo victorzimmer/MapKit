@@ -183,3 +183,5 @@ Just a few more I want to give a huge "Thank You"
 * [Brackets Editor](http://brackets.io)
 
 _MapKit as a name is somewhat copied of Apple's name for their map integration, same applies to the 'MK'-prefix._
+
+If there is anything I'd be happy to help. I can often be found on IRC #cordova @ irc.freenode.net
