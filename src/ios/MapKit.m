@@ -724,9 +724,21 @@ UIWebView* webView;
 
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
-    centerLat = [mapView centerLat];
-    centerLon = [mapView centerLon]
+    CLLocationCoordinate2D center = mapView.centerCoordinate;
+    CGPoint centerPoint = CGPointMake(center.longitude, center.latitude);
+
+    NSString *jsEval = [NSString stringWithFormat:@"MKInterface.__objc__.getCenterCallback(%f, %@)", mapId, [[NSStringFromCGPoint(centerPoint) stringByReplacingOccurrencesOfString:@"{" withString:@"["]stringByReplacingOccurrencesOfString:@"}" withString:@"]" ]];
+
+
+    [webView stringByEvaluatingJavaScriptFromString: jsEval];
+
+    CDVPluginResult* result = [CDVPluginResult
+                               resultWithStatus:CDVCommandStatus_OK
+                               messageAsString:[NSString stringWithFormat:@"%f", mapId]];
+
+    [self success:result callbackId:callbackId];
 }
+
 
 
 - (void)addSimpleMapPin:(CDVInvokedUrlCommand*)command
