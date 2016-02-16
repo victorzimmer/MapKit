@@ -717,6 +717,18 @@ UIWebView* webView;
 
 }
 
+- (void)getMapCenter:(CDVInvokedUrlCommand*)command
+{
+    NSString* callbackId = [command callbackId];
+    CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
+
+    MKMapView* mapView = [self.webView viewWithTag:mapId];
+
+    centerLat = [mapView centerLat];
+    centerLon = [mapView centerLon]
+}
+
+
 - (void)addSimpleMapPin:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
@@ -867,7 +879,7 @@ UIWebView* webView;
     {
         pinAnnotation.pinColor = MKPinAnnotationColorRed;
     }
-    
+
     if ([pinImage length] != 0) {
         pinAnnotation.customImage = YES;
         pinAnnotation.pinImage = pinImage;
@@ -984,7 +996,7 @@ UIWebView* webView;
         [jsParam appendString:pin.title];
         [jsParam appendString:@"\""];
         NSLog(jsParam);
-        
+
         NSString* jsString = [NSString stringWithFormat:@"MKInterface.__objc__.pinClickCallback(%@);", jsParam];
         [self.webView stringByEvaluatingJavaScriptFromString:jsString];
     }
@@ -994,7 +1006,7 @@ UIWebView* webView;
 {
     if ([annotation isKindOfClass:[MKUserLocation class]])
         return nil;
-    
+
     static NSString *reuseSimplePinId = @"SimplePin";
     static NSString *reuseComplexPinId = @"ComplexPin";
     static NSString *reuseCustomImageComplexPinId = @"CustomImageComplexPin";
@@ -1013,7 +1025,7 @@ UIWebView* webView;
             {
                 pav.annotation = annotation;
             }
-            
+
             NSURL *url = [NSURL URLWithString:pin.pinImage];
             NSData *imageData = [NSData dataWithContentsOfURL:url];
             pav.image = [UIImage imageWithData:imageData];
@@ -1030,13 +1042,13 @@ UIWebView* webView;
             {
                 pav.annotation = annotation;
             }
-            
+
             ((MKPinAnnotationView *)pav).pinColor = pin.pinColor;
         }
-        
+
         pav.draggable = pin.draggable;
         pav.canShowCallout = pin.canShowCallout;
-        
+
         if (pin.showInfoButton)
         {
             UIButton* info = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
