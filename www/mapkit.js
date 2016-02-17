@@ -396,7 +396,7 @@ var MKMap = function (mapId) {
     that = this
     centerLat = data.centerLat || 1
     centerLon = data.centerLon || 1
-    animated = data.animated || true
+    animated = data.animated !== false
 
     cordova.exec(this.execSuccess, this.execFailure, 'MapKit', 'setMapCenter', [this.mapArrayId, centerLat, centerLon, animated])
   }
@@ -406,7 +406,7 @@ var MKMap = function (mapId) {
     centerLon = data.centerLon || 1
     spanLat = data.spanLat || 1
     spanLon = data.spanLon || 1
-    animated = data.animated || true
+    animated = data.animated !== false
 
     cordova.exec(this.execSuccess, this.execFailure, 'MapKit', 'setMapRegion', [this.mapArrayId, centerLat, centerLon, spanLat, spanLon, animated])
   }
