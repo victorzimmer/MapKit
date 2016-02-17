@@ -392,6 +392,24 @@ var MKMap = function (mapId) {
     }
     cordova.exec(this.execSuccess, this.execFailure, 'MapKit', 'getMapCenter', [this.mapArrayId])
   }
+  this.setMapCenter = function (data) {
+    that = this
+    centerLat = data.centerLat || 1
+    centerLon = data.centerLon || 1
+    animated = data.animated || true
+
+    cordova.exec(this.execSuccess, this.execFailure, 'MapKit', 'setMapCenter', [this.mapArrayId, centerLat, centerLon, animated])
+  }
+  this.setMapRegion = function (data) {
+    that = this
+    centerLat = data.centerLat || 1
+    centerLon = data.centerLon || 1
+    spanLat = data.spanLat || 1
+    spanLon = data.spanLon || 1
+    animated = data.animated || true
+
+    cordova.exec(this.execSuccess, this.execFailure, 'MapKit', 'setMapRegion', [this.mapArrayId, centerLat, centerLon, spanLat, spanLon, animated])
+  }
 
   this.addSimpleMapPin = function (data) {
     console.log(isPlainObject(data))
