@@ -169,6 +169,7 @@ var MKMap = function (mapId) {
   this.options.mapBuildings = false
   this.options.mapPointsOfInterest = true
   this.options.mapUserLocation = false
+  this.getCenterCallback = function () { console.warn("Get map center called without valid callback!") }
   this.PinsArray = []
   this.Pins = {}
   this.setBounds = function (data) {
@@ -383,6 +384,33 @@ var MKMap = function (mapId) {
     cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'hideMapPointsOfInterest', [this.mapArrayId])
   }
 
+  this.getMapCenter = function (callback) {
+    that = this
+    if (callback != undefined)
+    {
+      this.getCenterCallback = callback
+    }
+    cordova.exec(this.execSuccess, this.execFailure, 'MapKit', 'getMapCenter', [this.mapArrayId])
+  }
+  this.setMapCenter = function (data) {
+    that = this
+    centerLat = data.centerLat || 1
+    centerLon = data.centerLon || 1
+    animated = data.animated !== false
+
+    cordova.exec(this.execSuccess, this.execFailure, 'MapKit', 'setMapCenter', [this.mapArrayId, centerLat, centerLon, animated])
+  }
+  this.setMapRegion = function (data) {
+    that = this
+    centerLat = data.centerLat || 1
+    centerLon = data.centerLon || 1
+    spanLat = data.spanLat || 1
+    spanLon = data.spanLon || 1
+    animated = data.animated !== false
+
+    cordova.exec(this.execSuccess, this.execFailure, 'MapKit', 'setMapRegion', [this.mapArrayId, centerLat, centerLon, spanLat, spanLon, animated])
+  }
+
   this.addSimpleMapPin = function (data) {
     console.log(isPlainObject(data))
     if (data != undefined && isPlainObject(data))
@@ -491,6 +519,14 @@ function handlePinClickCallback(mapId, title)
   Pin.pinClickCallback(Pin)
 }
 
+
+function handleGetMapCenterCallback(mapId, coords)
+{
+  console.log("Got map center callback on Map: ${parseInt(mapId)}")
+  MapArray[parseInt(mapId)].getCenterCallback(coords)
+  MapArray[parseInt(mapId)].getCenterCallback = function () { console.warn("Get map center called without valid callback!") }
+}
+
 window.MKInterface = {}
 window.MKInterface.MKMap = MKMap
 window.MKInterface.locationManager = locationManager
@@ -500,3 +536,4 @@ window.MKInterface.__objc__ = {}
 window.MKInterface.__objc__.pinInfoClickCallback = handlePinInfoClickCallback
 window.MKInterface.__objc__.pinDragCallback = handlePinDragCallback
 window.MKInterface.__objc__.pinClickCallback = handlePinClickCallback
+window.MKInterface.__objc__.getCenterCallback = handleGetMapCenterCallback

@@ -553,6 +553,194 @@ UIWebView* webView;
 
 }
 
+- (void)setMapOpacity:(CDVInvokedUrlCommand*)command
+{
+    NSString* callbackId = [command callbackId];
+    CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
+    CGFloat newAlpha = [[[command arguments] objectAtIndex:1] floatValue];
+    MKMapView* mapView = [self.webView viewWithTag:mapId];
+
+    [mapView setAlpha: newAlpha];
+
+
+    CDVPluginResult* result = [CDVPluginResult
+                               resultWithStatus:CDVCommandStatus_OK
+                               messageAsString:[NSString stringWithFormat:@"%f", mapId]];
+
+    [self success:result callbackId:callbackId];
+
+}
+
+- (void)setMapCenter:(CDVInvokedUrlCommand*)command
+{
+    NSString* callbackId = [command callbackId];
+    CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
+    CGFloat centerLat = [[[command arguments] objectAtIndex:1] floatValue];
+    CGFloat centerLon = [[[command arguments] objectAtIndex:2] floatValue];
+    BOOL animated = [[[command arguments] objectAtIndex:3] boolValue];
+    MKMapView* mapView = [self.webView viewWithTag:mapId];
+
+    CLLocationCoordinate2D newCenter = CLLocationCoordinate2DMake(centerLat, centerLon);
+    [mapView setCenterCoordinate:newCenter animated:animated];
+
+
+    CDVPluginResult* result = [CDVPluginResult
+                               resultWithStatus:CDVCommandStatus_OK
+                               messageAsString:[NSString stringWithFormat:@"%f", mapId]];
+
+    [self success:result callbackId:callbackId];
+
+}
+
+- (void)enableMapRotate:(CDVInvokedUrlCommand*)command
+{
+    NSString* callbackId = [command callbackId];
+    CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
+    MKMapView* mapView = [self.webView viewWithTag:mapId];
+
+    [mapView setRotateEnabled:YES];
+
+
+    CDVPluginResult* result = [CDVPluginResult
+                               resultWithStatus:CDVCommandStatus_OK
+                               messageAsString:[NSString stringWithFormat:@"%f", mapId]];
+
+    [self success:result callbackId:callbackId];
+
+}
+- (void)disableMapRotate:(CDVInvokedUrlCommand*)command
+{
+    NSString* callbackId = [command callbackId];
+    CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
+    MKMapView* mapView = [self.webView viewWithTag:mapId];
+
+    [mapView setRotateEnabled:NO];
+
+
+    CDVPluginResult* result = [CDVPluginResult
+                               resultWithStatus:CDVCommandStatus_OK
+                               messageAsString:[NSString stringWithFormat:@"%f", mapId]];
+
+    [self success:result callbackId:callbackId];
+
+}
+
+- (void)enableMapScroll:(CDVInvokedUrlCommand*)command
+{
+    NSString* callbackId = [command callbackId];
+    CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
+    MKMapView* mapView = [self.webView viewWithTag:mapId];
+
+    [mapView setScrollEnabled:YES];
+
+
+    CDVPluginResult* result = [CDVPluginResult
+                               resultWithStatus:CDVCommandStatus_OK
+                               messageAsString:[NSString stringWithFormat:@"%f", mapId]];
+
+    [self success:result callbackId:callbackId];
+
+}
+- (void)disableMapScroll:(CDVInvokedUrlCommand*)command
+{
+    NSString* callbackId = [command callbackId];
+    CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
+    MKMapView* mapView = [self.webView viewWithTag:mapId];
+
+    [mapView setScrollEnabled:NO];
+
+
+    CDVPluginResult* result = [CDVPluginResult
+                               resultWithStatus:CDVCommandStatus_OK
+                               messageAsString:[NSString stringWithFormat:@"%f", mapId]];
+
+    [self success:result callbackId:callbackId];
+
+}
+
+- (void)enableMapUserInteraction:(CDVInvokedUrlCommand*)command
+{
+    NSString* callbackId = [command callbackId];
+    CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
+    MKMapView* mapView = [self.webView viewWithTag:mapId];
+
+    [mapView setUserInteractionEnabled:YES];
+
+
+    CDVPluginResult* result = [CDVPluginResult
+                               resultWithStatus:CDVCommandStatus_OK
+                               messageAsString:[NSString stringWithFormat:@"%f", mapId]];
+
+    [self success:result callbackId:callbackId];
+
+}
+- (void)disableMapUserInteraction:(CDVInvokedUrlCommand*)command
+{
+    NSString* callbackId = [command callbackId];
+    CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
+    MKMapView* mapView = [self.webView viewWithTag:mapId];
+
+    [mapView setUserInteractionEnabled:NO];
+
+
+    CDVPluginResult* result = [CDVPluginResult
+                               resultWithStatus:CDVCommandStatus_OK
+                               messageAsString:[NSString stringWithFormat:@"%f", mapId]];
+
+    [self success:result callbackId:callbackId];
+
+}
+
+- (void)setMapRegion:(CDVInvokedUrlCommand*)command
+{
+    NSString* callbackId = [command callbackId];
+    CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
+    CGFloat centerLat = [[[command arguments] objectAtIndex:1] floatValue];
+    CGFloat centerLon = [[[command arguments] objectAtIndex:2] floatValue];
+    CGFloat spanLat = [[[command arguments] objectAtIndex:3] floatValue];
+    CGFloat spanLon = [[[command arguments] objectAtIndex:4] floatValue];
+    BOOL animated = [[[command arguments] objectAtIndex:5] boolValue];
+    MKMapView* mapView = [self.webView viewWithTag:mapId];
+
+    CLLocationCoordinate2D newCenter = CLLocationCoordinate2DMake(centerLat, centerLon);
+    MKCoordinateSpan newSpan = MKCoordinateSpanMake(spanLat, spanLon);
+
+    MKCoordinateRegion newRegion = MKCoordinateRegionMake(newCenter, newSpan);
+    [mapView setRegion:newRegion animated:animated];
+
+
+    CDVPluginResult* result = [CDVPluginResult
+                               resultWithStatus:CDVCommandStatus_OK
+                               messageAsString:[NSString stringWithFormat:@"%f", mapId]];
+
+    [self success:result callbackId:callbackId];
+
+}
+
+- (void)getMapCenter:(CDVInvokedUrlCommand*)command
+{
+    NSString* callbackId = [command callbackId];
+    CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
+
+    MKMapView* mapView = [self.webView viewWithTag:mapId];
+
+    CLLocationCoordinate2D center = mapView.centerCoordinate;
+    CGPoint centerPoint = CGPointMake(center.longitude, center.latitude);
+
+    NSString *jsEval = [NSString stringWithFormat:@"MKInterface.__objc__.getCenterCallback(%f, %@)", mapId, [[NSStringFromCGPoint(centerPoint) stringByReplacingOccurrencesOfString:@"{" withString:@"["]stringByReplacingOccurrencesOfString:@"}" withString:@"]" ]];
+
+
+    [webView stringByEvaluatingJavaScriptFromString: jsEval];
+
+    CDVPluginResult* result = [CDVPluginResult
+                               resultWithStatus:CDVCommandStatus_OK
+                               messageAsString:[NSString stringWithFormat:@"%f", mapId]];
+
+    [self success:result callbackId:callbackId];
+}
+
+
+
 - (void)addSimpleMapPin:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
@@ -711,6 +899,13 @@ UIWebView* webView;
         pinAnnotation.pinImageOffsetY = pinImageOffsetY;
     }
 
+    if ([pinImage length] != 0) {
+        pinAnnotation.customImage = YES;
+        pinAnnotation.pinImage = pinImage;
+        pinAnnotation.pinImageOffsetX = pinImageOffsetX;
+        pinAnnotation.pinImageOffsetY = pinImageOffsetY;
+    }
+
     if (draggable > 0)
     {
         pinAnnotation.draggable = YES;
@@ -820,7 +1015,7 @@ UIWebView* webView;
         [jsParam appendString:pin.title];
         [jsParam appendString:@"\""];
         NSLog(jsParam);
-        
+
         NSString* jsString = [NSString stringWithFormat:@"MKInterface.__objc__.pinClickCallback(%@);", jsParam];
         [self.webView stringByEvaluatingJavaScriptFromString:jsString];
     }
@@ -830,7 +1025,7 @@ UIWebView* webView;
 {
     if ([annotation isKindOfClass:[MKUserLocation class]])
         return nil;
-    
+
     static NSString *reuseSimplePinId = @"SimplePin";
     static NSString *reuseComplexPinId = @"ComplexPin";
     static NSString *reuseCustomImageComplexPinId = @"CustomImageComplexPin";
@@ -849,7 +1044,7 @@ UIWebView* webView;
             {
                 pav.annotation = annotation;
             }
-            
+
             NSURL *url = [NSURL URLWithString:pin.pinImage];
             NSData *imageData = [NSData dataWithContentsOfURL:url];
             pav.image = [UIImage imageWithData:imageData];
@@ -866,6 +1061,7 @@ UIWebView* webView;
             {
                 pav.annotation = annotation;
             }
+
             
             ((MKPinAnnotationView *)pav).pinColor = pin.pinColor;
         }
@@ -878,6 +1074,7 @@ UIWebView* webView;
             UIButton* info = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
             pav.rightCalloutAccessoryView = info;
         }
+
     }
     else if ([annotation isKindOfClass:[MKPointAnnotation class]])
     {
