@@ -519,6 +519,7 @@ function handlePinClickCallback(mapId, title)
   Pin.pinClickCallback(Pin)
 }
 
+
 function handleGetMapCenterCallback(mapId, coords)
 {
   console.log("Got map center callback on Map: ${parseInt(mapId)}")

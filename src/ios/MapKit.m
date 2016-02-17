@@ -891,6 +891,13 @@ UIWebView* webView;
     {
         pinAnnotation.pinColor = MKPinAnnotationColorRed;
     }
+    
+    if ([pinImage length] != 0) {
+        pinAnnotation.customImage = YES;
+        pinAnnotation.pinImage = pinImage;
+        pinAnnotation.pinImageOffsetX = pinImageOffsetX;
+        pinAnnotation.pinImageOffsetY = pinImageOffsetY;
+    }
 
     if ([pinImage length] != 0) {
         pinAnnotation.customImage = YES;
@@ -1055,17 +1062,19 @@ UIWebView* webView;
                 pav.annotation = annotation;
             }
 
+            
             ((MKPinAnnotationView *)pav).pinColor = pin.pinColor;
         }
-
+        
         pav.draggable = pin.draggable;
         pav.canShowCallout = pin.canShowCallout;
-
+        
         if (pin.showInfoButton)
         {
             UIButton* info = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
             pav.rightCalloutAccessoryView = info;
         }
+
     }
     else if ([annotation isKindOfClass:[MKPointAnnotation class]])
     {
