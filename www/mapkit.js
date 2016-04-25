@@ -411,6 +411,11 @@ var MKMap = function (mapId) {
     cordova.exec(this.execSuccess, this.execFailure, 'MapKit', 'setMapRegion', [this.mapArrayId, centerLat, centerLon, spanLat, spanLon, animated])
   }
 
+  this.setMapOpacity = function (opacity) {
+    that = this
+    cordova.exec(this.execSuccess, this.execFailure, 'MapKit', 'setMapOpacity', [this.mapArrayId, opacity])
+  }
+
   this.addSimpleMapPin = function (data) {
     console.log(isPlainObject(data))
     if (data != undefined && isPlainObject(data))
